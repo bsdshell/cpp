@@ -1,8 +1,6 @@
 #include<iostream>
-
-int main()
+int main(int argc, char *argv[])
 {
-    /*
     int row = 4;
     int col = 6;
     int Array[4][6] = {
@@ -10,12 +8,6 @@ int main()
         {16,  17, 18, 19, 20, 7},
         {15,  24, 23, 22, 21, 8},
         {14,  13, 12, 11, 10, 9}
-    };
-    */
-    int row = 1;
-    int col = 6;
-    int Array[1][6] = {
-        { 1,   2,  3,  4,  5, 6}
     };
 
 
