@@ -38,33 +38,4 @@ int main(int argc, char** argv)
     char* str = "aaabaaa";
     int i=0;
     std::cout<<isPalindromeRecursive(str, i)<<std::endl;
-
-    str = "";
-    i=0;
-    std::cout<<"str=["<<str<<"]="<<isPalindromeRecursive(str, i)<<std::endl;
-
-    str = "a";
-    i=0;
-    std::cout<<"str=["<<str<<"]"<<isPalindromeRecursive(str, i)<<std::endl;
-
-    str = "ab";
-    i=0;
-    std::cout<<"str=["<<str<<"]"<<isPalindromeRecursive(str, i)<<std::endl;
-
-    str = "aa";
-    i=0;
-    std::cout<<"str=["<<str<<"]"<<isPalindromeRecursive(str, i)<<std::endl;
-
-    str = "aab";
-    i=0;
-    std::cout<<"str=["<<str<<"]"<<isPalindromeRecursive(str, i)<<std::endl;
-
-    str = "aabb";
-    i=0;
-    std::cout<<"str=["<<str<<"]"<<isPalindromeRecursive(str, i)<<std::endl;
-
-    str = "abba";
-    i=0;
-    std::cout<<"str=["<<str<<"]"<<isPalindromeRecursive(str, i)<<std::endl;
-
 }
