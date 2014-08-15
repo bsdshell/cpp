@@ -2,17 +2,19 @@
 #include<stack>
 using namespace std;
 
+const int RIGHT = 6;
+const int DOWN = 5;
 void PrintLocation(int down, int right)
 {
     string str = std::to_string(down) + " " + std::to_string(right);
     std::cout<<"["<<str<<"]"<<std::endl;
 }
 
-void PrintMaze(int array[][6], int width, int height)
+void PrintMaze(int array[][RIGHT], int down, int right)
 {
-    for(int i=0; i<5; i++)
+    for(int i=0; i<DOWN; i++)
     {
-        for(int j=0; j<6; j++)
+        for(int j=0; j<RIGHT; j++)
         {
             if(down == i && j == right)
                 std::cout<<"["<<"x"<<"]";
@@ -21,26 +23,16 @@ void PrintMaze(int array[][6], int width, int height)
         }
         std::cout<<std::endl;
     }
+    std::cout<<std::endl;
 }
-bool DepthFirstSearch(int array[][6], int down, int right)
+
+bool DepthFirstSearch(int array[][RIGHT], int down, int right)
 {
-    if(down < 5 && right < 6) 
+    if(down < DOWN && right < RIGHT) 
     {
         if(array[down][right] == 0 || array[down][right] == 2)
         {
-            for(int i=0; i<5; i++)
-            {
-                for(int j=0; j<6; j++)
-                {
-                    if(down == i && j == right)
-                        std::cout<<"["<<"x"<<"]";
-                    else
-                        std::cout<<"["<<array[i][j]<<"]";
-                }
-                std::cout<<std::endl;
-            }
-            std::cout<<std::endl;
-
+            PrintMaze(array, down, right);
             if(DepthFirstSearch(array, down+1, right)) 
             {
                 PrintLocation(down, right); 
@@ -81,5 +73,4 @@ int main(int argc, char *argv[])
     int down = 0;
     DepthFirstSearch(Array, down, right);
     std::cout<<std::endl;
-    std::cout<<"spiral"<<std::endl;
 }
