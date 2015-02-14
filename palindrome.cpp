@@ -1,41 +1,154 @@
 #include<iostream>
-#include<stdio.h>
-#include<string.h>
+#include<vector>
+
+/*
+ * abbkkbe
+ *
+ * a
+ * ab
+ * abb
+ * abbk
+ * abbkk
+ * abbkkb
+ *  bbkkb
+ *   bkkb
+ *    kkb
+ * abbkkbe
+ */ 
 
 using namespace std;
 
-bool isPalindrome(char* str)
+bool isPalindrome(int* array, int len, int* pbuff)
 {
-    bool isValid = true;
-    if(str != NULL)
+    int c=0; 
+    int plen=-1;
+    bool isPalin = true;
+    while(c < len && isPalin)
     {
-        int len = strlen(str);
-        for(int i=0; i<len/2 && isValid; i++)
+        int moveLeft=0;
+        isPalin = true;
+        for(int i=c; i<len && isPalin; i++)
         {
-            if( (str[i]) != str[len-1-i])        
-                isValid = false;
+            if(array[i] != array[len-i-moveLeft])
+                isPalin = false;
+
+            moveLeft++;
+        }
+        if(isPalin)
+        {
+            int index=0;
+            for(int i=c; i<len; i++)
+            {
+                pbuff[index] = array[i];
+                index++;
+            }
+            plen = len-c;
+        }
+        c++;
+    }
+    return plen; 
+}
+
+void maxPalindrome(int* array, int len, int* pbuff)
+{
+    int* maxbuff = new int[len];
+    int index=0;
+    int maxLen = 0;
+    for(int i=0; i<len; i++)
+    {
+        if(maxLen < (len = isPalindrome(array, i+1, pbuff)))        
+        {
+            maxLen = len;
+            for(int i=0; i<maxLen; i++)
+            {
+                maxbuff[i] = pbuff[i];
+            }
         }
     }
-    return isValid;
 }
 
-
-bool isPalindromeRecursive(char* str, int i)
+int longestPalindrome(string str)
 {
-    int len = strlen(str);
-    if(len <= 1)
-        return true;
-    else
+    int len = str.length();
+    string newStr = "";
+    for(char ch:str)
+        newStr += string(1, ch) + "#"; 
+    //Trim the last character
+    newStr[newStr.length()-1] = '\0';
+
+    int maxOffset = 0;
+    int leftIndex = 0;
+    int rightIndex= 0;
+    for(int i=0; i<newStr.length(); i++)
     {
-       char* pt = new char[len-2];
-       strncpy(pt, str+1, len-2);
-       return str[i] == str[len-1-i] && isPalindromeRecursive(pt, i+1); 
-    }
+        int offset = 0;
+        int left = 0;
+        int right = 0;
+        while(i - (offset + 1)>=0 && i + (offset + 1) < newStr.length())
+        {
+            int tmpLeft = i - (offset + 1);
+            int tmpRight= i + (offset + 1);
+            if(newStr[tmpLeft] == newStr[tmpRight])
+            {
+                left = tmpLeft;
+                right = tmpRight;
+                offset++;
+            }
+            else
+                break;
+        }
+        if(offset > maxOffset)
+        {
+            leftIndex = left;
+            rightIndex = right;
+            maxOffset = offset;
+        }
+    } 
+
+    for(int i=leftIndex; i<=rightIndex; i++)
+        std::cout<<newStr[i]<<std::endl;
+
+    return maxOffset;
 }
 
-int main(int argc, char** argv)
+void test1()
 {
-    char* str = "aaabaaa";
-    int i=0;
-    std::cout<<isPalindromeRecursive(str, i)<<std::endl;
+    std::cout<<"test1()"<<std::endl;
+    string str = "abb";
+    int maxOffset = longestPalindrome(str);
+    std::cout<<"maxOffset="<<maxOffset<<std::endl;
 }
+
+void test2()
+{
+    std::cout<<"test2()"<<std::endl;
+    const int len=1;
+    string str = "a";
+    int maxOffset = longestPalindrome(str);
+    std::cout<<"maxOffset="<<maxOffset<<std::endl;
+}
+
+void test3()
+{
+    std::cout<<"test3()"<<std::endl;
+    string str = "aabbeebb";
+    int maxOffset = longestPalindrome(str);
+    std::cout<<"maxOffset="<<maxOffset<<std::endl;
+}
+
+void test4()
+{
+    std::cout<<"test4()"<<std::endl;
+    string str = "abba";
+    int maxOffset = longestPalindrome(str);
+    std::cout<<"maxOffset="<<maxOffset<<std::endl;
+}
+
+int main()
+{
+    test1();
+    test2();
+    test3();
+    test4();
+}
+
