@@ -69,10 +69,10 @@ void maxPalindrome(int* array, int len, int* pbuff)
 
 int longestPalindrome(string str)
 {
-    int len = str.length();
     string newStr = "";
     for(char ch:str)
         newStr += string(1, ch) + "#"; 
+
     //Trim the last character
     newStr[newStr.length()-1] = '\0';
 
@@ -82,25 +82,23 @@ int longestPalindrome(string str)
     for(int i=0; i<newStr.length(); i++)
     {
         int offset = 0;
-        int left = 0;
-        int right = 0;
-        while(i - (offset + 1)>=0 && i + (offset + 1) < newStr.length())
+        int tmpLeft = i - (offset + 1);
+        int tmpRight= i + (offset + 1);
+        while(tmpLeft >=0 && tmpRight < newStr.length())
         {
-            int tmpLeft = i - (offset + 1);
-            int tmpRight= i + (offset + 1);
             if(newStr[tmpLeft] == newStr[tmpRight])
-            {
-                left = tmpLeft;
-                right = tmpRight;
                 offset++;
-            }
             else
                 break;
+
+            tmpLeft = i - (offset + 1);
+            tmpRight= i + (offset + 1);
         }
+
         if(offset > maxOffset)
         {
-            leftIndex = left;
-            rightIndex = right;
+            leftIndex = tmpLeft;
+            rightIndex = tmpRight;
             maxOffset = offset;
         }
     } 
@@ -145,7 +143,7 @@ void test3()
 void test4()
 {
     std::cout<<"test4()"<<std::endl;
-    string str = "abba";
+    string str = "kakbaea";
     int maxOffset = longestPalindrome(str);
     std::cout<<"maxOffset="<<maxOffset<<std::endl;
 }
