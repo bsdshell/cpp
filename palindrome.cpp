@@ -105,8 +105,14 @@ int longestPalindrome(string str)
         }
     } 
 
+    string palindrome = "";
     for(int i=leftIndex; i<=rightIndex; i++)
-        std::cout<<newStr[i]<<std::endl;
+    {
+        if(newStr[i] != '#')
+            palindrome += string(1, newStr[i]);
+    }
+
+    std::cout<<"palindrome="<<palindrome<<endl;
 
     return maxOffset;
 }
