@@ -67,7 +67,7 @@ void maxPalindrome(int* array, int len, int* pbuff)
     }
 }
 
-int longestPalindrome(string str)
+string longestPalindrome(string str)
 {
     string newStr = "";
     for(char ch:str)
@@ -110,17 +110,16 @@ int longestPalindrome(string str)
             palindrome += string(1, newStr[i]);
     }
 
-    std::cout<<"palindrome="<<palindrome<<endl;
-
-    return maxOffset;
+    return palindrome;
 }
 
 void test1()
 {
     std::cout<<"test1()"<<std::endl;
     string str = "abb";
-    int maxOffset = longestPalindrome(str);
-    std::cout<<"maxOffset="<<maxOffset<<std::endl;
+    string palindrome = longestPalindrome(str);
+    std::cout<<"str       ="<<str<<std::endl;
+    std::cout<<"palindrome="<<palindrome<<std::endl<<std::endl;
 }
 
 void test2()
@@ -128,24 +127,28 @@ void test2()
     std::cout<<"test2()"<<std::endl;
     const int len=1;
     string str = "a";
-    int maxOffset = longestPalindrome(str);
-    std::cout<<"maxOffset="<<maxOffset<<std::endl;
+    
+    string palindrome = longestPalindrome(str);
+    std::cout<<"str       ="<<str<<std::endl;
+    std::cout<<"palindrome="<<palindrome<<std::endl<<std::endl;
 }
 
 void test3()
 {
     std::cout<<"test3()"<<std::endl;
     string str = "aabbeebb";
-    int maxOffset = longestPalindrome(str);
-    std::cout<<"maxOffset="<<maxOffset<<std::endl;
+    string palindrome = longestPalindrome(str);
+    std::cout<<"str       ="<<str<<std::endl;
+    std::cout<<"palindrome="<<palindrome<<std::endl<<std::endl;
 }
 
 void test4()
 {
     std::cout<<"test4()"<<std::endl;
     string str = "kakbaea";
-    int maxOffset = longestPalindrome(str);
-    std::cout<<"maxOffset="<<maxOffset<<std::endl;
+    string palindrome = longestPalindrome(str);
+    std::cout<<"str       ="<<str<<std::endl;
+    std::cout<<"palindrome="<<palindrome<<std::endl<<std::endl;
 }
 
 int main()
