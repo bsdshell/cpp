@@ -1,21 +1,6 @@
 #include<iostream>
 #include<vector>
 
-/*
- * abbkkbe
- *
- * a
- * ab
- * abb
- * abbk
- * abbkk
- * abbkkb
- *  bbkkb
- *   bkkb
- *    kkb
- * abbkkbe
- */ 
-
 using namespace std;
 
 bool isPalindrome(int* array, int len, int* pbuff)
@@ -113,6 +98,47 @@ string longestPalindrome(string str)
     return palindrome;
 }
 
+bool isPalindrome(string str)
+{
+    string originalStr = str;
+    int len = str.length();
+    for(int i=0; i<len/2; i++)
+    {
+        char tmpch = str[i];    
+        str[i] = str[len-1-i];
+        str[len-1-i] = tmpch;
+    }
+    return originalStr.compare(str);
+}
+string longestPalindrome2(string str)
+{
+    int offset=0;
+    int maxLen=0;
+    string maxStr="";
+    while(offset < str.length())
+    {
+        for(int i=0; i<str.length(); i++)
+        {
+            if(offset + (i+1) <= str.length())
+            {
+                string substr = str.substr(offset, i+1);
+                std::cout<<"substr="<<substr<<std::endl;
+                int slen = substr.length();
+                if(isPalindrome(substr) == 0)
+                {
+                    if(slen > maxLen)
+                    {
+                        maxStr = substr;
+                        maxLen = slen;
+                    }
+                }
+            }
+        }
+        offset++;
+    }
+    return maxStr;
+}
+
 void test1()
 {
     std::cout<<"test1()"<<std::endl;
@@ -151,11 +177,21 @@ void test4()
     std::cout<<"palindrome="<<palindrome<<std::endl<<std::endl;
 }
 
+void test5()
+{
+    std::cout<<"test5()"<<std::endl;
+    string str = "kakbjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjasdfkasdljfalsjdfkkkkkkkkkkkkkkkkkk:lsdfdfkfksdfkaskjefaiwfjiafaea";
+    string maxStr = longestPalindrome2(str);
+    std::cout<<"maxStr="<<maxStr<<std::endl;
+}
+
+
 int main()
 {
     test1();
     test2();
     test3();
     test4();
+    test5();
 }
 
