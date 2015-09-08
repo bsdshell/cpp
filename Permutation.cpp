@@ -51,7 +51,7 @@ class MyClass
     }
     void nchoosek(char array[], char buf[], int n, int r, int k)
     {
-        if( k > n)
+        if( k > n || k < 0)
             return;
         if(k == 0 || n == 0)
         {
@@ -73,6 +73,21 @@ class MyClass
         array[i] = array[j];
         array[j] = tmp;
     }
+    void test0()
+    {
+        std::cout<<"====================test0()"<<std::endl;
+        MyClass* c = new MyClass();
+        const int size = 4;
+        
+        char array[size] = {'e', 'a', 'b', 'c'};
+        char* buf = (char*)malloc(sizeof(char)*size);
+
+        int n = size-1;
+        int r = 2;
+        int k = 2;
+        c->nchoosek(array, buf, n, r, k);
+        free(buf);
+    } 
     void test1()
     {
         std::cout<<"====================test1()"<<std::endl;
@@ -120,6 +135,17 @@ class MyClass
         c->nchoosek(array, buf, n, r, k);
         free(buf);
     } 
+    void test4()
+    {
+        std::cout<<"====================test4()"<<std::endl;
+        int k = 0;
+        const int size = 4;
+        MyClass* c = new MyClass();
+        char array[size] = {'e', 'a', 'b', 'c'};
+        char* buf = (char*)malloc(sizeof(char)*size);
+        c->combination(array, buf, size, k);
+        free(buf);
+    } 
 };
 
 int main()
@@ -137,8 +163,10 @@ int main()
     //c->combination(array, buf, size, k);
 
     
+    c->test0();
     c->test1();
     c->test2();
     c->test3();
+    c->test4();
 
 }
