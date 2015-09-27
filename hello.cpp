@@ -17,11 +17,11 @@ char * cp(char *a)
 
 char *copy1( char *s, char *t )
 {
-        while ( *s++ = *t++ )
-                {
-                            ;
-                                }
-            return s;
+    while ( *s++ = *t++ )
+    {
+        ;
+    }
+    return s;
 }
 
 char* copy2(char *s, char* t)
@@ -45,7 +45,21 @@ int main()
     char *pt = str;
     char *pt1 = str1;
     char *mycopy = cp(str);
-    //char *mycopy = copy1(str, str1);
+    printf("\n");
+    printf("pt  =[%x]\n", pt);
+    printf("pt1 =[%x]\n", pt1);
+
+    char* tmp = pt;
+    pt = pt1;
+    pt1 = tmp; 
+
+    printf("s pt  =[%x]\n", pt);
+    printf("s pt1 =[%x]\n", pt1);
+
+    int* npt1 = (int*)malloc(sizeof(int)*3);
+    int* npt2 = (int*)malloc(sizeof(int)*3);
+
+
     std::cout<<"mycopy="<<mycopy<<std::endl;
 }
 

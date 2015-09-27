@@ -15,7 +15,7 @@ int partition(int array[], int lo, int hi)
     {
         int p = array[lo];
         int big = lo;
-        for(int i=lo; i<hi+1; i++)
+        for(int i=lo; i<=hi; i++)
         {
             if(array[i] <= p)     
             {
