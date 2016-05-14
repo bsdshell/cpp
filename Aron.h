@@ -1,11 +1,7 @@
-namespace aron 
-{
-    class myclass
-    {
-        public:
-            myclass();
-        public:
-            void sort();
-    };
-}
+class myclass {
+    public:
+        myclass();
+    public:
+        void fun(); 
+};
 

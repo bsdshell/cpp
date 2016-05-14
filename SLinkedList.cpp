@@ -7,8 +7,7 @@ class MyClass
 {
     int num;
     public:
-    MyClass(int num):num(num)
-    {
+    MyClass(int num):num(num) {
     }
     ~MyClass()
     {
@@ -16,8 +15,7 @@ class MyClass
     }
 };
 
-class Node
-{
+class Node {
     public:
         Node* next;
         int data;
@@ -29,21 +27,17 @@ class Node
         }
 };
 
-class SLinkedList
-{
+class SLinkedList {
     Node* head;
     public:
-    SLinkedList()
-    { 
+    SLinkedList() { 
         head = NULL;
     }
     public:
-    void append(int num)
-    {
+    void append(int num) {
         if(head == NULL)
             head = new Node(num);
-        else
-        {
+        else {
             Node* curr = head;
             while(curr->next != NULL)
             {
@@ -52,8 +46,7 @@ class SLinkedList
             curr->next = new Node(num);
         }
     }
-    bool remove(int num)
-    {
+    bool remove(int num) {
         Node* curr = head;
         Node* prev = NULL;
 
@@ -75,21 +68,18 @@ class SLinkedList
         }
         return true;
     }
-    void show()
-    {
+    void show() {
         Node* curr = head;
-        while(curr != NULL && curr != NULL)
-        {
+        while(curr != NULL && curr != NULL) {
             std::cout<<curr->data<<std::endl;
             curr = curr->next;
         }
+        std::cout<<"--------------------------"<<std::endl;
     }
-    Node* getHead()
-    {
+    Node* getHead() {
         return head;
     }
-    int size()
-    {
+    int size() {
         Node* curr = head;
         int count=0;
         while(curr != NULL)
@@ -101,20 +91,18 @@ class SLinkedList
     }
 
     //Return new reversed linked list
-    Node* reverse()
-    {
+    Node* reverse() {
         std::stack<Node*> stack;
         Node* curr = head;
-        while(curr != NULL)
-        {
+        while(curr != NULL) {
             stack.push(curr);
             curr = curr->next;
         }
         Node* prev = NULL;
         Node* newHead = NULL;
-        while(!stack.empty())
-        {
-            Node* curr = stack.top(); stack.pop();
+        while(!stack.empty()) {
+            Node* curr = stack.top(); 
+            stack.pop();
             if(prev != NULL)
                 prev->next = curr;    
             else
@@ -124,8 +112,19 @@ class SLinkedList
         }
         return newHead;
     }
-    Node* duplicatedList()
-    {
+    Node* reverseLinkedList(){
+        Node* curr = head;
+        Node* prev = NULL;
+        while(curr != NULL){
+            Node* tmpCurr = curr;
+            curr->next = prev;
+            prev = tmpCurr;
+            curr = tmpCurr->next;
+        }
+        return prev;
+    }
+
+    Node* duplicatedList() {
         Node* curr = head;
         Node* newCurr = NULL;
         Node* newHead = NULL;
@@ -143,8 +142,7 @@ class SLinkedList
         }
         return newHead;
     }
-    ~SLinkedList()
-    {
+    ~SLinkedList() {
         Node* curr = head;
         while(curr != NULL)
         {
@@ -158,19 +156,18 @@ class SLinkedList
     }
 };
 
-void show(Node* head)
-{
+void show(Node* head) {
     Node* curr = head;
-    while(curr != NULL)
-    {
+    while(curr != NULL) {
         std::cout<<curr->data<<std::endl;
         curr = curr->next;
     }
 }
 
 
-void test1()
-{
+void test1() {
+    std::cout<<"test1()"<<std::endl;
+    std::cout<<"Append node"<<std::endl;
     SLinkedList mylist;
     mylist.append(1);
     mylist.append(2);
@@ -178,8 +175,9 @@ void test1()
     mylist.show();
 }
 
-void test2()
-{
+void test2() {
+    std::cout<<"test2()"<<std::endl;
+    std::cout<<"Remove/append node"<<std::endl;
     SLinkedList mylist;
     mylist.append(1);
     mylist.append(2);
@@ -189,38 +187,49 @@ void test2()
     mylist.show();
 }
 
-void test3()
-{
+void test3() {
+    std::cout<<"test3()"<<std::endl;
+    std::cout<<"Duplicated Linked List"<<std::endl;
     SLinkedList mylist;
     mylist.append(1);
     mylist.append(2);
     mylist.append(3);
     mylist.show();
-    std::cout<<"Duplicated Linked List"<<std::endl;
     Node* newList = mylist.duplicatedList();
     show(newList);
 }
 
-void test4()
-{
+void test4() {
+    std::cout<<"test4()"<<std::endl;
+    std::cout<<"Reversed Linked List"<<std::endl;
     SLinkedList mylist;
     mylist.append(1);
     mylist.append(2);
     mylist.append(3);
     mylist.show();
 
-    std::cout<<"Reversed Linked List"<<std::endl;
     Node* newList = mylist.reverse();
     show(newList);
 }
 
-int main()
-{
-    SLinkedList* sll = new SLinkedList();
-    MyClass myclass(3);
-    sll->show();
-    std::cout<<"Single Linked List"<<std::endl;
+
+void test5() {
+    std::cout<<"test5()"<<std::endl;
+    std::cout<<"reverseLinkedList()"<<std::endl;
+    SLinkedList mylist;
+    mylist.append(1);
+    mylist.append(2);
+    mylist.show();
+
+    Node* newList = mylist.reverseLinkedList();
+    show(newList);
+}
+
+int main() {
+    //test1();
     //test2();
-    test4();
+    //test3();
+    //test4();
+    test5();
 }
 

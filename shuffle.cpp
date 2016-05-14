@@ -6,6 +6,8 @@ void swap(int* array, int i, int j)
     array[i] = array[j];
     array[j] = tmp;
 }
+
+//[ file=shuffle.html title = "randomly generate unique n integer"
 void shuffle(int* array, int len)
 {
     for(int i=0; i<len; i++)
@@ -14,6 +16,7 @@ void shuffle(int* array, int len)
         swap(array, r, (len-i-1));
     }
 }
+//]
 
 
 int main()

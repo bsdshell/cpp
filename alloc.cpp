@@ -13,17 +13,16 @@ int main()
     for(int i=0; i<col; i++)
         pt1[i] = i;
 
-    printf("c style 1D \n");
     for(int i=0; i<col; i++){
         printf("[%d]", pt1[i]);
     }
 
-    delete pt1;
+    free(pt1);
 
-    printf("c style 2D \n");
+    printf("c style 2D: pt2[col][row]\n");
     int** pt2 = (int**)malloc(col*sizeof(int*));
     for(int i=0; i<col; i++)
-        pt2[i] = (int*)malloc(col*sizeof(int));
+        pt2[i] = (int*)malloc(row*sizeof(int));
 
     for(int i=0; i<col; i++) {
         for(int j=0; j<row; j++){
@@ -58,6 +57,7 @@ int main()
         }
         printf("\n");
     }
+    free(pt3);
 
     printf("c++ style 1D \n");
     int* pt = new int[col];
@@ -68,6 +68,7 @@ int main()
         printf("[%d]", pt[i]);
 
     printf("\n");
+    delete[] pt;
 
     printf("c++ style \n");
     int** array = (int**)new int*[col];
@@ -86,8 +87,6 @@ int main()
         }
         printf("\n");
     }
-
-    delete pt;
 
     for(int i=0; i<col; i++)
         delete[] array[i];

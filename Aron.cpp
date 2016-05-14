@@ -1,13 +1,9 @@
 #include<iostream>
 #include "Aron.h"
 
-namespace aron
-{
-    myclass::myclass()
-    {
-    }
-    void myclass::sort()
-    {
-    }
+myclass::myclass() {
+}
+void myclass::fun() {
+    std::cout<<"fun"<<std::endl;
 }
 

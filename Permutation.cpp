@@ -8,6 +8,7 @@ using namespace std;
 class MyClass
 {
     public:
+    //[ file=permutate.html title="permuate n character"
     void permutate(int* array, int size, int k)
     {
         if(k == size)
@@ -30,6 +31,7 @@ class MyClass
             }
         }
     }
+    //]
     void combination(char array[], char buf[], int size, int k)
     {
         for(int i=k; i<size; i++)
