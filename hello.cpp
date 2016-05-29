@@ -1,65 +1,68 @@
 #include<iostream>
 
-char * cp(char *a)
-{
-    char *f;
-    f = (char *)malloc((strlen(a) + 1)*sizeof(char));
-    char* ret = f;
-                    while (*a != 0)
-                    {
-                        *f = *a;
-                        f++;
-                        a++;
-                    }  
-    *f = '\0';
-    return ret;
-}
 
-char *copy1( char *s, char *t )
-{
-    while ( *s++ = *t++ )
-    {
-        ;
+struct ListNode {
+    struct ListNode	*pLast,
+                    *pNext;
+};
+
+struct List {
+    struct ListNode	*pHead,
+                    *pTail;
+};
+
+bool RemoveListNode(List* pList, ListNode* pRemove) {
+    if(pRemove != NULL && pLast != NULL && pList->pHead != NULL){
+        ListNode* curr = pList->pHead;
+        while(curr){
+            if(curr == pRemove){
+                if(curr->pLast == NULL){
+                    // head node
+                    ListNode* next = curr->pNext;
+                    if(next != NULL){
+                        // more than one node
+                        next->pLast = NULL;
+                        curr->pNext = NULL;
+                    }else{
+                        // one node list
+                        pLast->pHead = NULL;
+                        pLast->pTail = NULL;
+                    }
+                    if(curr) 
+                        delete curr;
+                    pRemove = NULL;
+                }else if(curr->pNext == NULL){
+                   // last node 
+                   ListNode* last = curr->pLast
+                   if(last != NULL){
+                       last->pNext = NULL;
+                       curr->pLast = NULL;
+                   }
+                   if(curr)
+                       delete curr;
+                   pRemove = NULL;
+                }else{
+                    ListNode* last = curr->pLast;
+                    ListNode* next = curr->pNext;
+                    last->pNext = next;
+                    next->pLast = last;
+                    curr->pNext = NULL;
+                    curr->pLast = NULL;
+                }
+                
+            }else{
+                curr = curr->pNext;
+            }
+        }
     }
-    return s;
+    return true;
 }
-
-char* copy2(char *s, char* t)
-{
-   while(*s)
-   {
-       *t = *s;
-       t++;
-       s++;
-   }
-   *t = '\0';
-   return t;
-} 
 
 int main()
 {
-    std::cout<<"Hello World";
-    
-    char str[] = "123";
-    char str1[] = "aaa";
-    char *pt = str;
-    char *pt1 = str1;
-    char *mycopy = cp(str);
-    printf("\n");
-    printf("pt  =[%x]\n", pt);
-    printf("pt1 =[%x]\n", pt1);
-
-    char* tmp = pt;
-    pt = pt1;
-    pt1 = tmp; 
-
-    printf("s pt  =[%x]\n", pt);
-    printf("s pt1 =[%x]\n", pt1);
-
-    int* npt1 = (int*)malloc(sizeof(int)*3);
-    int* npt2 = (int*)malloc(sizeof(int)*3);
-
-
-    std::cout<<"mycopy="<<mycopy<<std::endl;
+    char str[] = "dog";
+    printf("%s", str); 
+    char *pt = NULL;
+    printf("[%s]", pt); 
 }
 

@@ -21,13 +21,13 @@ int main ()
   std::cout << std::regex_replace (s, e, "$1 and $2", std::regex_constants::format_no_copy);
   std::cout << std::endl;
 
-
-  // replace white to underscore
-  std::string fileName ("screenshot cool dog.png\n");
-  std::regex pattern(" ");   // matches words beginning by "sub"
+  // cpp regex, cpp regular expression replace space to underscore
+  std::string fileName ("screen cool dog.png\n");
+  std::regex pattern(" ");
   std::string resultFileName;
   std::regex_replace(std::back_inserter(resultFileName), fileName.begin(), fileName.end(), pattern, "_");
-  std::cout <<"re="<<resultFileName<<endl;
+  std::cout <<"fileName->"<<resultFileName<<endl;
 
+    
   return 0;
 }
