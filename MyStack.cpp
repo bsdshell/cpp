@@ -1,6 +1,4 @@
 #include<iostream>
-# include <iostream>
-# include <type_traits>
 
 class Stack{
     public:
