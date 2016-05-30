@@ -1,6 +1,5 @@
 #include<iostream>
 
-
 struct ListNode {
     struct ListNode	*pLast,
                     *pNext;
