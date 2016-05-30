@@ -1,5 +1,5 @@
 #include<iostream>
-
+//[file=ddlinkedlist.html title=""
 class Node{
     public:
         Node* next;
@@ -82,6 +82,7 @@ class DDLinkedList{
         }
      
 };
+//]
 
 void test0(){
     printf("test0\n");

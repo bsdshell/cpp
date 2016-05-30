@@ -1,5 +1,6 @@
 #include<iostream>
 
+//[file=mystack.html title=""
 class Stack{
     public:
         int maxLen;
@@ -36,6 +37,7 @@ class Stack{
                 delete[] array;
         }
 };
+//]
 
 void test0(){
     printf("test0\n");
