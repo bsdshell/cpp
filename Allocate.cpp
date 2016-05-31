@@ -1,14 +1,15 @@
 #include<iostream>
 
+//[file=allocate.html title=""]
 int* allocate(int size){
     return new int[size];
 }
 
-void deallocate(int *pt){
-    delete pt;
+void deallocate(int*& pt){
+    delete[] pt;
     pt = NULL;
 }
-
+//]
 int main() {
     int size = 10;
     int* pt = allocate(size);
@@ -20,5 +21,10 @@ int main() {
         printf("[%d]\n", pt[i]); 
     }
     deallocate(pt);
+    if(pt == NULL){
+        printf("pt is NULL\n");
+    }else{
+        printf("pt is NOT NULL\n");
+    }
 }
 
