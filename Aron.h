@@ -1,7 +1,6 @@
-class myclass {
-    public:
-        myclass();
-    public:
-        void fun(); 
-};
+#include<iostream>
+#include<vector>
+
+void printVector(std::vector<int> vec);
+
 

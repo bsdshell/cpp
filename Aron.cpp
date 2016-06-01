@@ -1,9 +1,14 @@
 #include<iostream>
 #include "Aron.h"
 
-myclass::myclass() {
+using namespace std;
+
+void printVector(std::vector<int> vec){
+    for(int i=0; i<vec.size(); i++){
+        std::cout<<"["<<vec[i]<<"]"<<std::endl;
+    } 
 }
-void myclass::fun() {
-    std::cout<<"fun"<<std::endl;
+
+int main() {
 }
 
