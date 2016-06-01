@@ -9,8 +9,6 @@ void printVector(std::vector<int> vec){
     } 
 }
 
-
-
 int main() {
 }
 
