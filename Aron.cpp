@@ -8,7 +8,6 @@ void printVector(std::vector<int> vec){
         std::cout<<"["<<vec[i]<<"]"<<std::endl;
     } 
 }
-
 int main() {
 }
 
