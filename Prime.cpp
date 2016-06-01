@@ -1,6 +1,5 @@
 #include<iostream>
 #include<vector>
-#include "Aron.h"
 using namespace std;
 
 //[file=primecpp.html title=""
