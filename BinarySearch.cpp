@@ -1,5 +1,6 @@
 #include<iostream>
 
+//[ file=binary-search.html title=""
 bool BinarySearch(int* array, int lo, int hi, int key)
 {
     if(array != NULL && lo <= hi)
@@ -14,6 +15,7 @@ bool BinarySearch(int* array, int lo, int hi, int key)
     }
     return false;
 }
+//]
 
 void test2()
 {
