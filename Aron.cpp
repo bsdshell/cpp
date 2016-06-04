@@ -8,3 +8,11 @@ void printVector(std::vector<int> vec){
     } 
 }
 
+void printArray(int* arr, int len){
+    for(int i=0; i<len; i++){
+        std::cout<<"["<<arr[i]<<"]"<<std::endl;
+    } 
+}
+
+
+ 
