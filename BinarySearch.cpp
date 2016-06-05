@@ -1,10 +1,8 @@
 #include<iostream>
 
 //[ file=binary-search.html title=""
-bool BinarySearch(int* array, int lo, int hi, int key)
-{
-    if(array != NULL && lo <= hi)
-    {
+bool BinarySearch(int* array, int lo, int hi, int key) {
+    if(array != NULL && lo <= hi) {
         int mid = (lo+hi)/2;
         if(key < array[mid])
             return BinarySearch(array, lo, mid-1, key);
@@ -17,8 +15,7 @@ bool BinarySearch(int* array, int lo, int hi, int key)
 }
 //]
 
-void test2()
-{
+void test2() {
     int array[1] = {1};
     int lo = 0;
     int hi = sizeof(array)/sizeof(int) -1;
@@ -33,8 +30,7 @@ void test2()
 
 }
 
-void test1()
-{
+void test1() {
     int array[5] = {1, 2, 3, 4, 5};
     int lo = 0;
     int hi = sizeof(array)/sizeof(int) -1;
@@ -43,8 +39,7 @@ void test1()
     std::cout<<"key="<<key<<" foundKey="<<foundkey<<std::endl;
 }
 
-int main()
-{
+int main() {
     std::cout<<"Binary Search"<<std::endl;
     test1();
 }
