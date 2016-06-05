@@ -20,9 +20,8 @@ vector<int> decimalBinary(int n){
 }
 //]
 
-
 void test0(){
-    printf("---------------------------------\n");
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
     vector<int> v = decimalBinary(0);
     printVector(v);
     printf("---------------------------------\n");
