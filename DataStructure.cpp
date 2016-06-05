@@ -6,13 +6,13 @@
 using namespace std;
 
 //[file=cppdatastructure.html title=""
-class Node{
-    public:
-        int data;
-    public:
-        Node(int n){data = n;}
-};
-
+//class Node{
+//    public:
+//        int data;
+//    public:
+//        Node(int n){data = n;}
+//};
+//
 int main(){
     // cpp vector
     vector<Node> v;
