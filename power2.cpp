@@ -5,6 +5,7 @@
 
 using namespace std;
 
+//[file=power2.html title=""
 bool power2(int n){
     if(n == 0 || n == 1 )
         return true;
@@ -19,6 +20,7 @@ bool power2(int n){
 bool fastPower2(int n){
     return (n & (n-1)) == 0;
 }
+//]
 
 vector<int> decimalToBinary(int n){
     vector<int> vec;
