@@ -4,3 +4,4 @@ all:
 	clang++ -g -v -std=c++11 -stdlib=libc++ -o   DecimalBinary DecimalBinary.cpp  Aron.cpp
 	clang++ -g -v -std=c++11 -stdlib=libc++ -o   BuildTree BuildTree.cpp Aron.cpp
 	clang++ -g -v -std=c++11 -stdlib=libc++ -o   power2 power2.cpp 
+	clang++ -g -v -std=c++11 -stdlib=libc++ -o   Algorithm Algorithm.cpp Aron.cpp

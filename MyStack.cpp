@@ -1,5 +1,6 @@
 #include<iostream>
 
+using namespace std;
 //[file=mystack.html title=""
 class Stack{
     public:
@@ -35,6 +36,41 @@ class Stack{
         ~Stack(){
             if(array)
                 delete[] array;
+        }
+};
+//]
+
+//[file=queuetwostacks.html title=""
+class Queue{
+    public:
+        shared_ptr<Stack>  st1;
+        shared_ptr<Stack>  st2;
+        Queue(int n){
+            shared_ptr<Stack> p1(new Stack(n)); 
+            st1 = p1;
+            shared_ptr<Stack> p2(new Stack(n)); 
+            st2 = p2;
+        }
+    public:
+        char dequeue(){
+            char ch;
+            if(st1->size() > 0){
+                while(!st1->isEmpty()){
+                    st2->push(st1->pop());
+                }
+
+                ch = st2->pop();
+                while(!st2->isEmpty()){
+                    st1->push(st2->pop());
+                }
+            }
+            return ch;
+        }
+        void enqueue(int n){
+            st1->push(n);
+        }
+        bool isEmpty(){
+            return st1->isEmpty();
         }
 };
 //]
@@ -85,10 +121,74 @@ void test3(){
     printf("-------test3\n");
 }
 
+
+void test4(){
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
+    int len = 10;
+    shared_ptr<Queue> q(new Queue(len));
+    q->enqueue(1);
+    while(!q->isEmpty()){
+        printf("q=[%d]", q->dequeue());
+    }
+    printf("---------------------------------\n");
+}
+void test5(){
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
+    int len = 10;
+    shared_ptr<Queue> q(new Queue(len));
+    q->enqueue(1);
+    q->dequeue();
+    while(!q->isEmpty()){
+        printf("q=[%d]\n", q->dequeue());
+    }
+    printf("---------------------------------\n");
+}
+
+void test6(){
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
+    int len = 10;
+    shared_ptr<Queue> q(new Queue(len));
+    q->enqueue(1);
+    q->dequeue();
+    q->dequeue();
+    while(!q->isEmpty()){
+        printf("q=[%d]\n", q->dequeue());
+    }
+    printf("---------------------------------\n");
+} 
+
+
+void test7(){
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
+    int len = 10;
+    shared_ptr<Queue> q(new Queue(len));
+    q->enqueue(1);
+    q->enqueue(2);
+    q->enqueue(3);
+    q->dequeue();
+    while(!q->isEmpty()){
+        printf("q=[%d]\n", q->dequeue());
+    }
+    printf("---------------------------------\n");
+} 
+void test8(){
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
+    int len = 10;
+    shared_ptr<Queue> q(new Queue(len));
+    q->enqueue(1);
+    while(!q->isEmpty()){
+        printf("q=[%d]\n", q->dequeue());
+    }
+    printf("---------------------------------\n");
+}
+
+
 int main() {
-    test0(); 
-    test1(); 
-    test2(); 
     test3(); 
+    test4(); 
+    test5(); 
+    test6(); 
+    test7(); 
+    test8(); 
 }
 
