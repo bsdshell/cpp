@@ -22,18 +22,6 @@ class Node{
     }
 };
 
-//class LNode{
-//    public:
-//        LNode* next;
-//        LNode* prev;
-//        int data;
-//    public:
-//        LNode(int data){
-//            next = prev = NULL;
-//            this->data = data;
-//        }
-//};
-//
 //[file=singlelinkedlist.html title=""
 class SLL{
     public:
