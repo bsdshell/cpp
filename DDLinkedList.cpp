@@ -1,18 +1,7 @@
 #include<iostream>
+#include "Aron.h"
+
 //[file=ddlinkedlist.html title=""
-class Node{
-    public:
-        Node* next;
-        Node* prev;
-        int data;
-    public:
-        Node(int data){
-            next = prev = NULL;
-            this->data = data;
-        }
-
-};
-
 class DDLinkedList{
     public:
         Node* head;
@@ -85,7 +74,7 @@ class DDLinkedList{
 //]
 
 void test0(){
-    printf("test0\n");
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
 
     DDLinkedList* ddl = new DDLinkedList();
     ddl->append(new Node(1));
@@ -94,7 +83,7 @@ void test0(){
 
 
 void test1(){
-    printf("test1\n");
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
 
     DDLinkedList* ddl = new DDLinkedList();
     ddl->append(new Node(1));
@@ -106,7 +95,7 @@ void test1(){
 }
 
 void test2(){
-    printf("test2\n");
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
 
     DDLinkedList* ddl = new DDLinkedList();
     Node* n1 = new Node(1);
@@ -118,7 +107,7 @@ void test2(){
 }
 
 void test3(){
-    printf("test3\n");
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
 
     DDLinkedList* ddl = new DDLinkedList();
     Node* n1 = new Node(1);
@@ -134,7 +123,7 @@ void test3(){
 }
 
 void test4(){
-    printf("test4\n");
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
 
     DDLinkedList* ddl = new DDLinkedList();
     Node* n1 = new Node(1);
@@ -149,7 +138,6 @@ void test4(){
     ddl->print();
     printf("---------------------------------\n");
 }
-
 void test5(){
     printf("test5\n");
 
@@ -168,11 +156,53 @@ void test5(){
     printf("---------------------------------\n");
 }
 
+
+void testCloneDLL0(){
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
+
+    DDLinkedList* ddl = new DDLinkedList();
+    Node* n1 = new Node(1);
+    Node* n2 = new Node(2);
+    Node* n3 = new Node(3);
+
+    ddl->append(n1);
+    ddl->append(n2);
+    ddl->append(n3);
+    ddl->print();
+    printf("---------------------------------\n");
+    Node* head = NULL;
+    Node* tail = NULL;
+    cloneDLL(ddl->head, head, tail);
+    std::cout<<"["<<tail->data<<"]"<<std::endl;
+    printf("---------------------------------\n");
+}
+
+void testCloneDLL1(){
+    printf("[%s]--------\n", __PRETTY_FUNCTION__);
+    DDLinkedList* ddl = new DDLinkedList();
+    Node* n1 = new Node(1);
+    Node* n2 = new Node(2);
+    Node* n3 = new Node(3);
+
+    ddl->append(n1);
+    ddl->print();
+    printf("---------------------------------\n");
+    Node* head = NULL;
+    Node* tail = NULL;
+    cloneDLL(ddl->head, head, tail);
+    printLinkedList(head);
+    printf("---------------------------------\n");
+    std::cout<<"tail=["<<tail->data<<"]"<<std::endl;
+    printf("---------------------------------\n");
+}
+
 int main() {
-    test1();
-    test2();
-    test3();
-    test4();
-    test5();
+//    test1();
+//    test2();
+//    test3();
+//    test4();
+//    test5();
+    testCloneDLL0();
+    testCloneDLL1();
 }
 

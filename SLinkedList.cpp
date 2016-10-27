@@ -1,46 +1,45 @@
 #include<iostream>
 #include<stack>
+#include "Aron.h"
 
 using namespace std;
 
-class MyClass
-{
+class MyClass {
     int num;
-    public:
+public:
     MyClass(int num):num(num) {
     }
-    ~MyClass()
-    {
+    ~MyClass() {
         std::cout<<"~MyClass()"<<std::endl;
     }
 };
 
-class Node {
-    public:
-        Node* next;
-        int data;
-    public:
-        Node(int data)
-        {
-            this->data = data;
-            next = NULL;
-        }
-};
+//class Node {
+//public:
+//    Node* next;
+//    int data;
+//public:
+//    Node(int data) {
+//        this->data = data;
+//        next = NULL;
+//    }
+//};
+//
 
 class SLinkedList {
+public:
     Node* head;
-    public:
-    SLinkedList() { 
+public:
+    SLinkedList() {
         head = NULL;
     }
-    public:
+public:
     void append(int num) {
         if(head == NULL)
             head = new Node(num);
         else {
             Node* curr = head;
-            while(curr->next != NULL)
-            {
+            while(curr->next != NULL) {
                 curr = curr->next;
             }
             curr->next = new Node(num);
@@ -51,10 +50,8 @@ class SLinkedList {
         Node* prev = NULL;
 
         bool exit = false;
-        while(curr != NULL && !exit)
-        {
-            if(curr->data == num)
-            {
+        while(curr != NULL && !exit) {
+            if(curr->data == num) {
                 if(prev == NULL)
                     head = curr->next;
                 else
@@ -74,7 +71,6 @@ class SLinkedList {
             std::cout<<curr->data<<std::endl;
             curr = curr->next;
         }
-        std::cout<<"--------------------------"<<std::endl;
     }
     Node* getHead() {
         return head;
@@ -82,8 +78,7 @@ class SLinkedList {
     int size() {
         Node* curr = head;
         int count=0;
-        while(curr != NULL)
-        {
+        while(curr != NULL) {
             curr = curr->next;
             count++;
         }
@@ -101,10 +96,10 @@ class SLinkedList {
         Node* prev = NULL;
         Node* newHead = NULL;
         while(!stack.empty()) {
-            Node* curr = stack.top(); 
+            Node* curr = stack.top();
             stack.pop();
             if(prev != NULL)
-                prev->next = curr;    
+                prev->next = curr;
             else
                 newHead = curr;
             prev = curr;
@@ -112,10 +107,10 @@ class SLinkedList {
         }
         return newHead;
     }
-    Node* reverseLinkedList(){
+    Node* reverseLinkedList() {
         Node* curr = head;
         Node* prev = NULL;
-        while(curr != NULL){
+        while(curr != NULL) {
             Node* tmpCurr = curr;
             curr->next = prev;
             prev = tmpCurr;
@@ -128,12 +123,10 @@ class SLinkedList {
         Node* curr = head;
         Node* newCurr = NULL;
         Node* newHead = NULL;
-        while(curr != NULL)
-        {
-            if(newCurr == NULL) 
+        while(curr != NULL) {
+            if(newCurr == NULL)
                 newHead = newCurr = new Node(curr->data);
-            else
-            {
+            else {
                 newCurr->next = new Node(curr->data);
                 newCurr = newCurr->next;
             }
@@ -144,8 +137,7 @@ class SLinkedList {
     }
     ~SLinkedList() {
         Node* curr = head;
-        while(curr != NULL)
-        {
+        while(curr != NULL) {
             Node* next = curr->next;
             delete curr;
             curr = next;
@@ -175,7 +167,8 @@ void test1() {
     mylist.show();
 }
 
-void test2() {
+void test0_remove() {
+    begin();
     std::cout<<"test2()"<<std::endl;
     std::cout<<"Remove/append node"<<std::endl;
     SLinkedList mylist;
@@ -184,7 +177,20 @@ void test2() {
     mylist.append(3);
 
     mylist.remove(3);
-    mylist.show();
+    printSLL(mylist.head);
+}
+
+void test1_remove() {
+    begin();
+    SLinkedList mylist;
+    mylist.append(1);
+    mylist.append(2);
+    mylist.append(3);
+
+    mylist.remove(1);
+    mylist.remove(2);
+    mylist.remove(3);
+    printSLL(mylist.head);
 }
 
 void test3() {
@@ -227,9 +233,10 @@ void test5() {
 
 int main() {
     //test1();
-    //test2();
     //test3();
     //test4();
-    test5();
+    //test5();
+    test0_remove();
+    test1_remove();
 }
 

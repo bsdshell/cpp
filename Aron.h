@@ -1,18 +1,112 @@
 #include<iostream>
 #include<vector>
 
+#define PAD "--------------------------------------------------------------------------------"
+
+using namespace std;
+
 class Node{
     public:
-        int data;
+        Node* next;
         Node* left;
         Node* right;
+        Node* prev;
+        int data;
     public:
     Node(int n){
         data = n;
         left = NULL;
         right = NULL;
+        next = NULL;
+        prev = NULL;
     }
 };
+
+//class LNode{
+//    public:
+//        LNode* next;
+//        LNode* prev;
+//        int data;
+//    public:
+//        LNode(int data){
+//            next = prev = NULL;
+//            this->data = data;
+//        }
+//};
+//
+//[file=singlelinkedlist.html title=""
+class SLL{
+    public:
+        Node* head;
+        SLL(){head = NULL;};
+    public:
+    void append(int data){
+        if(head){
+            Node* curr = head;
+            while(curr->right){
+                curr = curr->right;
+            }
+            curr->right = new Node(data); 
+        }else{
+            head = new Node(data);
+        }
+    }
+    void append(Node* node){
+        if(head){
+            Node* curr = head;
+            while(curr->right){
+                curr = curr->right;
+            }
+            curr->right = node; 
+        }else{
+            head = node;
+        }
+    }
+    void print(){
+        Node* curr = head;
+        while(curr){
+            std::cout<<"["<<curr->data<<"]"<<std::endl;
+            curr = curr->right;
+        }
+    }
+    int count(){
+        Node* curr = head;
+        int count = 0;
+        while(curr){
+            count++;
+            curr = curr->right;
+        }
+        return count;
+    }
+    void remove(Node* node){
+        Node* curr = head;
+        if(curr != NULL && node != NULL){
+            Node* prev = NULL;
+            Node* right = curr->right;
+            while(curr){
+                if(curr == node){
+                    if(prev){
+                        prev->right = right;
+                        curr->right = NULL;
+                    }else{
+                        head = right;
+                        curr->right = NULL;
+                    }
+                    delete curr;
+                    curr = NULL;
+                }else{
+                    prev = curr;
+                    curr = curr->right;
+                    if(curr)
+                        right = curr->right;
+                }
+            }
+        }
+    }
+
+    
+};
+//]
 
 class BST{
 public:
@@ -58,10 +152,20 @@ public:
     }
 };
 
+Node* cloneSLL(Node* root);
+void cloneDLL(Node* root, Node*& head, Node*& tail);
 void printVector(std::vector<int> vec);
 void printArray(int* arr, int len);
 void inorder(Node* root);
 void preorder(Node* root);
 void postorder(Node* root);
+void printLinkedList(Node* head);
+void printSLL(Node* head);
+void begin(const char* name);
+void begin();
+void end();
+void cut(char* pt);
+string fun_parent();
+string fun_parent_parent();
 
 

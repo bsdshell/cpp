@@ -268,6 +268,9 @@ void test6(){
     
     
     printf("---------------------------------\n");
+    
+    int
+    
 }
 
 int main(){
@@ -277,6 +280,6 @@ int main(){
     test3();
     test4();
     test5();
-    test6();
+    //test6();
 }
 
