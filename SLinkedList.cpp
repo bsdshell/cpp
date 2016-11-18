@@ -4,28 +4,6 @@
 
 using namespace std;
 
-class MyClass {
-    int num;
-public:
-    MyClass(int num):num(num) {
-    }
-    ~MyClass() {
-        std::cout<<"~MyClass()"<<std::endl;
-    }
-};
-
-//class Node {
-//public:
-//    Node* next;
-//    int data;
-//public:
-//    Node(int data) {
-//        this->data = data;
-//        next = NULL;
-//    }
-//};
-//
-
 class SLinkedList {
 public:
     Node* head;
@@ -65,16 +43,11 @@ public:
         }
         return true;
     }
-    void show() {
-        Node* curr = head;
-        while(curr != NULL && curr != NULL) {
-            std::cout<<curr->data<<std::endl;
-            curr = curr->next;
-        }
-    }
+
     Node* getHead() {
         return head;
     }
+
     int size() {
         Node* curr = head;
         int count=0;
@@ -143,34 +116,20 @@ public:
             curr = next;
         }
         head = NULL;
-
-        std::cout<<"Destructor: ~SLinkedList()"<<std::endl;
     }
 };
 
-void show(Node* head) {
-    Node* curr = head;
-    while(curr != NULL) {
-        std::cout<<curr->data<<std::endl;
-        curr = curr->next;
-    }
-}
-
-
 void test1() {
-    std::cout<<"test1()"<<std::endl;
-    std::cout<<"Append node"<<std::endl;
+    begin();
     SLinkedList mylist;
     mylist.append(1);
     mylist.append(2);
     mylist.append(3);
-    mylist.show();
+    printSLL(mylist.head);
 }
 
 void test0_remove() {
     begin();
-    std::cout<<"test2()"<<std::endl;
-    std::cout<<"Remove/append node"<<std::endl;
     SLinkedList mylist;
     mylist.append(1);
     mylist.append(2);
@@ -194,48 +153,43 @@ void test1_remove() {
 }
 
 void test3() {
-    std::cout<<"test3()"<<std::endl;
-    std::cout<<"Duplicated Linked List"<<std::endl;
+    begin();
     SLinkedList mylist;
     mylist.append(1);
     mylist.append(2);
     mylist.append(3);
-    mylist.show();
+    printSLL(mylist.head);
     Node* newList = mylist.duplicatedList();
-    show(newList);
+    printSLL(newList);
 }
 
 void test4() {
-    std::cout<<"test4()"<<std::endl;
-    std::cout<<"Reversed Linked List"<<std::endl;
+    begin();
     SLinkedList mylist;
     mylist.append(1);
     mylist.append(2);
     mylist.append(3);
-    mylist.show();
+    printSLL(mylist.head);
 
     Node* newList = mylist.reverse();
-    show(newList);
+    printSLL(newList);
 }
 
-
 void test5() {
-    std::cout<<"test5()"<<std::endl;
-    std::cout<<"reverseLinkedList()"<<std::endl;
+    begin();
     SLinkedList mylist;
     mylist.append(1);
     mylist.append(2);
-    mylist.show();
+    printSLL(mylist.head);
 
     Node* newList = mylist.reverseLinkedList();
-    show(newList);
+    printSLL(newList);
 }
 
 int main() {
-    //test1();
-    //test3();
-    //test4();
-    //test5();
+    test1();
+    test3(); test4();
+    test5();
     test0_remove();
     test1_remove();
 }

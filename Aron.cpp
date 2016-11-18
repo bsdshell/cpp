@@ -135,6 +135,10 @@ void begin(const char* name){
 }
 
 void end(){
+    fl();
+}
+
+void fl(){
     printf("[%s]\n", PAD);
 }
 
@@ -159,8 +163,8 @@ string fun_parent(){
     strings = backtrace_symbols (array, size);
 
     cut(strings[1]);
-    string str = std::string(strings[1] + 63);
-    free (strings);
+    string str = std::string(strings[1] + 62);
+    free(strings);
     return str; 
 }
 
@@ -174,11 +178,14 @@ string fun_parent_parent(){
     strings = backtrace_symbols (array, size);
 
     cut(strings[2]);
-    string str = std::string(strings[2] + 63);
+    string str = std::string(strings[2] + 62);
     free (strings);
     return str; 
 }
 
+void pp(const char* format, ...){
+    printf(format);
+}
 
 
  

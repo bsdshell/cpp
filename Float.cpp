@@ -6,6 +6,7 @@ using namespace std;
 int main()
 {
     std::cout<<std::setprecision(100);
+
     double x = 1e-100;
     double y = 2e2;
     printf("x :=[%f]\n", x);
