@@ -22,26 +22,61 @@ class Node{
     }
 };
 
-//[file=singlelinkedlist.html title=""
-class SLL{
+//template <class Type> class Node{
+//    public:
+//        Node* next;
+//        Node* left;
+//        Node* right;
+//        Node* prev;
+//        Type data;
+//    public:
+//    Node(Type n){
+//        data = n;
+//        left = NULL;
+//        right = NULL;
+//        next = NULL;
+//        prev = NULL;
+//    }
+//};
+//
+
+template <class Type> class MyNode{
     public:
-        Node* head;
+        MyNode* next;
+        MyNode* left;
+        MyNode* right;
+        MyNode* prev;
+        Type data;
+    public:
+    MyNode(Type n){
+        data = n;
+        left = NULL;
+        right = NULL;
+        next = NULL;
+        prev = NULL;
+    }
+};
+
+//[file=singlelinkedlist.html title=""
+template <class Type> class SLL{
+    public:
+        MyNode<Type>* head;
         SLL(){head = NULL;};
     public:
     void append(int data){
         if(head){
-            Node* curr = head;
+            MyNode<Type>* curr = head;
             while(curr->right){
                 curr = curr->right;
             }
-            curr->right = new Node(data); 
+            curr->right = new MyNode<Type>(data); 
         }else{
-            head = new Node(data);
+            head = new MyNode<Type>(data);
         }
     }
-    void append(Node* node){
+    void append(MyNode<Type>* node){
         if(head){
-            Node* curr = head;
+            MyNode<Type>* curr = head;
             while(curr->right){
                 curr = curr->right;
             }
@@ -51,14 +86,14 @@ class SLL{
         }
     }
     void print(){
-        Node* curr = head;
+        MyNode<Type>* curr = head;
         while(curr){
             std::cout<<"["<<curr->data<<"]"<<std::endl;
             curr = curr->right;
         }
     }
     int count(){
-        Node* curr = head;
+        MyNode<Type>* curr = head;
         int count = 0;
         while(curr){
             count++;
@@ -66,11 +101,11 @@ class SLL{
         }
         return count;
     }
-    void remove(Node* node){
-        Node* curr = head;
+    void remove(MyNode<Type>* node){
+        MyNode<Type>* curr = head;
         if(curr != NULL && node != NULL){
-            Node* prev = NULL;
-            Node* right = curr->right;
+            MyNode<Type>* prev = NULL;
+            MyNode<Type>* right = curr->right;
             while(curr){
                 if(curr == node){
                     if(prev){
