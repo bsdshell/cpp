@@ -15,8 +15,8 @@ class Coordinate{
     Cylinder* co3;
     public: 
     Coordinate(){
-        int step = 20;
-        double radius = 0.1
+        int steps = 20;
+        double radius = 0.1;
         col = new Cylinder(0.0, 0.0, 6.0, radius, steps);
         co2 = new Cylinder(0.0, 0.0, 6.0, radius, steps);
         co3 = new Cylinder(0.0, 0.0, 6.0, radius, steps);
