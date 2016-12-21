@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
+#include "Vector3.h"
+#include "DDLinkedList.h"
 
 #define PAD "--------------------------------------------------------------------------------"
 using namespace std;
@@ -92,6 +94,32 @@ void print(DDLinkedList<Vector3>* ddl){
         curr->data.print();
         curr = curr->next;
     }
+}
+
+void printContext(GLfloat x, GLfloat y, GLfloat fl, GLfloat f2) {
+    glPushMatrix();
+    glTranslatef(x, y, 0);
+    char buffer1[50];
+    char buffer2[50];
+    sprintf(buffer1, "%f", fl);
+    for (char* p = buffer1; *p; p++)
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
+
+    glTranslatef(x + 30.0, 0.0, 0);
+    sprintf(buffer2, "%f", f2);
+    for (char* p = buffer2; *p; p++)
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
+    glPopMatrix();
+}
+
+void printContext(GLfloat x, GLfloat y, GLfloat fl) {
+    glPushMatrix();
+    glTranslatef(x, y, 0);
+    char buffer[50];
+    sprintf(buffer, "%f", fl);
+    for (char* p = buffer; *p; p++)
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
+    glPopMatrix();
 }
 
 

@@ -8,7 +8,7 @@
 
 class Vector3{
     public:
-    GLdouble v[3];
+    GLfloat v[3];
     public:
     Vector3(){ }
     public:
@@ -19,13 +19,13 @@ class Vector3{
         this->v[2] = other.v[2];
     }
 
-    Vector3(GLdouble x, GLdouble y, GLdouble z){ 
+    Vector3(GLfloat x, GLfloat y, GLfloat z){ 
         v[0] = x;
         v[1] = y;
         v[2] = z;
     }
 
-    Vector3(GLdouble arr[3]){ 
+    Vector3(GLfloat arr[3]){ 
         v[0] = arr[0];
         v[1] = arr[1];
         v[2] = arr[2];
@@ -54,7 +54,7 @@ class Vector3{
         return v;
     }
 
-    Vector3 operator/(GLdouble n){
+    Vector3 operator/(GLfloat n){
         //Vector3* v = new Vector3(); 
         Vector3::Vector3 v; 
         v.v[0] = this->v[0]/n;
