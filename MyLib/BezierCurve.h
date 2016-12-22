@@ -2,11 +2,9 @@
 #define BEZIERCURVE 
 
 #include "Vector3.h"
-
 #include "DDLinkedList.h"
 
-
-
+// three control points bezier curve
 void beziercurve(Vector3 v0, Vector3 v1, Vector3 v2, DDLinkedList<Vector3>* ddl, int level) {
     if(level > 0) {
         Vector3 m0 = (v0 + v1)/2;
@@ -19,6 +17,7 @@ void beziercurve(Vector3 v0, Vector3 v1, Vector3 v2, DDLinkedList<Vector3>* ddl,
     }
 }
 
+// four control points bezier curve
 void beziercurve4(Vector3 v0, Vector3 v1, Vector3 v2, Vector3 v3, DDLinkedList<Vector3>* ddl, int level) {
     if(level > 0) {
         Vector3 m01 = (v0 + v1)/2;
