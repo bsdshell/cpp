@@ -20,7 +20,9 @@ class Curve{
     Vector3 p2;
     Vector3 p3;
     Vector3 arr[4];
+    GLfloat color[3] = {1.0, 0.0, 0.0};
     int level;
+    public:
     DDLinkedList<Vector3>* ddl = new DDLinkedList<Vector3>();
 
     private: int numPoints = 3;
@@ -53,6 +55,9 @@ class Curve{
         drawControlPoints();
         drawCurve();
     }
+    void setColor(GLfloat color[3]){
+        memcpy(this->color, color, 3*sizeof(GLfloat));  
+    }
 
     private:
     void toArray(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3 = Vector3(0.0, 0.0, 0.0)){
@@ -71,7 +76,8 @@ class Curve{
         glBegin(GL_LINE_STRIP);
         Node<Vector3>* curr = ddl->head;
         while(curr) {
-        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, c % 2 == 0 ? RED : MAGENTA);
+        glColor3f(color[0], color[1], color[2]);
+//        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, c % 2 == 0 ? RED : MAGENTA);
             Vector3 v = curr->data;
             glVertex3d(v.v[0], v.v[1], v.v[2]);
             c++;
@@ -82,7 +88,8 @@ class Curve{
     private:
     void drawControlPoints(){
         glBegin(GL_LINE_STRIP);
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, WHITE);
+            //glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, WHITE);
+            glColor3f(0.5*color[0], 1.3*color[1], 0.5*color[2]);
             for(int i=0; i<numPoints; i++){
                 glVertex3d(arr[i].v[0], arr[i].v[1], arr[i].v[2]);
             } 

@@ -8,13 +8,10 @@
 #endif
 #include <cmath>
 #include "Color.h" 
+#include "Const.h" 
 
 class Parabola{
     public:
-    GLfloat WHITE[3]   = {1, 1, 1};
-    GLfloat RED[3]     = {1, 0, 0};
-    GLfloat GREEN[3]   = {0, 1, 0};
-    GLfloat MAGENTA[3] = {1, 0, 1};
 
     GLfloat x0 = 0.0;
     GLfloat y0 = 0.0;

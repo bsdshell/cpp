@@ -1,3 +1,6 @@
+#ifndef __UTILITY__ 
+#define __UTILITY__ 
+
 #include <execinfo.h>
 #include<iostream>
 #include <stdio.h>
@@ -84,7 +87,7 @@ void pp(float n){
     printf("[%f]", n);
 }
 
-void print(Vector3 v){
+void print(Vector3::Vector3 v){
     v.print();
 }
 
@@ -96,7 +99,21 @@ void print(DDLinkedList<Vector3>* ddl){
     }
 }
 
-void printContext(GLfloat x, GLfloat y, GLfloat fl, GLfloat f2) {
+void printFormat(GLfloat x, GLfloat y, char *format,...) {
+    va_list args;
+    char buffer[200], *p;
+
+    va_start(args, format);
+    vsprintf(buffer, format, args);
+    va_end(args);
+    glPushMatrix();
+    glTranslatef(x, y, 0);
+    for (p = buffer; *p; p++)
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
+    glPopMatrix();
+}
+
+void printFormat(GLfloat x, GLfloat y, GLfloat fl, GLfloat f2) {
     glPushMatrix();
     glTranslatef(x, y, 0);
     char buffer1[50];
@@ -112,7 +129,7 @@ void printContext(GLfloat x, GLfloat y, GLfloat fl, GLfloat f2) {
     glPopMatrix();
 }
 
-void printContext(GLfloat x, GLfloat y, GLfloat fl) {
+void printFormat(GLfloat x, GLfloat y, GLfloat fl) {
     glPushMatrix();
     glTranslatef(x, y, 0);
     char buffer[50];
@@ -122,4 +139,5 @@ void printContext(GLfloat x, GLfloat y, GLfloat fl) {
     glPopMatrix();
 }
 
+#endif
 
