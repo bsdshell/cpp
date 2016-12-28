@@ -150,7 +150,7 @@ namespace SpaceVector4{
         public:
         Vector4(){
             column[0] = column[1] = column[2] = 0.0f;
-            column[3] = 1.0f;
+            column[3] = 0.0f;
         }
         Vector4(const Vector4& other){
             this->column[0] = other.column[0];
@@ -184,7 +184,7 @@ namespace SpaceVector4{
             v.column[0] = this->column[0] + rhs.column[0];
             v.column[1] = this->column[1] + rhs.column[1];
             v.column[2] = this->column[2] + rhs.column[2];
-            v.column[3] = this->column[3] + rhs.column[3];
+            v.column[3] = 0.0f;
             return v; 
         }
 
@@ -193,7 +193,7 @@ namespace SpaceVector4{
             v.column[0] = this->column[0] - rhs.column[0];
             v.column[1] = this->column[1] - rhs.column[1];
             v.column[2] = this->column[2] - rhs.column[2];
-            v.column[3] = this->column[3] - rhs.column[3];
+            v.column[3] = 0.0f;
             return v;
         }
 
@@ -202,7 +202,6 @@ namespace SpaceVector4{
             v.column[0] = column[0]/n;
             v.column[1] = column[1]/n;
             v.column[2] = column[2]/n;
-            v.column[3] = column[3]/n;
             return v;
         }
 
@@ -211,7 +210,6 @@ namespace SpaceVector4{
             v.column[0] = column[0] * rhs.column[0];
             v.column[1] = column[1] * rhs.column[1];
             v.column[2] = column[2] * rhs.column[2];
-            v.column[3] = column[3] * rhs.column[3];
             return v[0] + v[1] + v[2] + v[3];
         }
 
@@ -221,7 +219,11 @@ namespace SpaceVector4{
 
         Vector4 normal(){
             Vector4::Vector4 v; 
-            return v;
+            float norm = column[0]*column[0] + 
+                         column[1]*column[1] +
+                         column[2]*column[2];
+            float n = sqrtf(norm); 
+            return (*this)/n;
         }
 
         // [] can't modify member variables
@@ -309,6 +311,20 @@ namespace SpaceMatrix4{
             m[2] = (*this)*matrix[2];
             m[3] = (*this)*matrix[3];
             return m;
+        }
+        // [1, 2, 3, 0] => point at infinite 
+        // [1, 2, 3, 1] => normal point
+        Matrix4 translate(float x, float y, float z, float w = 0.0f){
+            Matrix4 m;
+            mat[0][0] = 1;
+            mat[1][1] = 1;
+            mat[2][2] = 1;
+
+            mat[3][0] = x;
+            mat[3][1] = y;
+            mat[3][2] = z;
+            mat[3][3] = w;
+            return *this;
         }
 
         void print(){

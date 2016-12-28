@@ -77,7 +77,6 @@ class Curve{
         Node<Vector3>* curr = ddl->head;
         while(curr) {
         glColor3f(color[0], color[1], color[2]);
-//        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, c % 2 == 0 ? RED : MAGENTA);
             Vector3 v = curr->data;
             glVertex3d(v.v[0], v.v[1], v.v[2]);
             c++;
@@ -88,7 +87,6 @@ class Curve{
     private:
     void drawControlPoints(){
         glBegin(GL_LINE_STRIP);
-            //glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, WHITE);
             glColor3f(0.5*color[0], 1.3*color[1], 0.5*color[2]);
             for(int i=0; i<numPoints; i++){
                 glVertex3d(arr[i].v[0], arr[i].v[1], arr[i].v[2]);
