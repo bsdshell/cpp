@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string>
 #include <iostream>
-#include "Node.h"
+//#include "Node.h"
 
 template <class Type> class SLL{
     public:
@@ -13,10 +13,10 @@ template <class Type> class SLL{
     void append(Type data){
         if(head){
             Node<Type>* curr = head;
-            while(curr->right){
-                curr = curr->right;
+            while(curr->next){
+                curr = curr->next;
             }
-            curr->right = new Node<Type>(data); 
+            curr->next = new Node<Type>(data); 
         }else{
             head = new Node<Type>(data);
         }
@@ -24,10 +24,10 @@ template <class Type> class SLL{
     void append(Node<Type>* node){
         if(head){
             Node<Type>* curr = head;
-            while(curr->right){
-                curr = curr->right;
+            while(curr->next){
+                curr = curr->next;
             }
-            curr->right = node; 
+            curr->next = node; 
         }else{
             head = node;
         }
@@ -36,7 +36,7 @@ template <class Type> class SLL{
         Node<Type>* curr = head;
         while(curr){
             std::cout<<"["<<curr->data<<"]"<<std::endl;
-            curr = curr->right;
+            curr = curr->next;
         }
     }
     int count(){
@@ -44,31 +44,55 @@ template <class Type> class SLL{
         int count = 0;
         while(curr){
             count++;
-            curr = curr->right;
+            curr = curr->next;
         }
         return count;
     }
+
+    void remove(Type item){
+        Node<Type>* curr = head;
+        Node<Type>* prev = NULL;
+        while(curr){
+            if(curr->data == item){
+                if(prev == NULL){
+                    head = curr->next;
+                    curr->next = NULL;
+                    delete curr;
+                    curr = NULL;
+                }else{
+                    prev->next = curr->next;
+                    curr->next = NULL;
+                    delete curr;
+                    curr = NULL;
+                }
+            }else{
+                prev = curr;
+                curr = curr->next;
+            }
+        }
+    }
+
     void remove(Node<Type>* node){
         Node<Type>* curr = head;
         if(curr != NULL && node != NULL){
             Node<Type>* prev = NULL;
-            Node<Type>* right = curr->right;
+            Node<Type>* right = curr->next;
             while(curr){
                 if(curr == node){
                     if(prev){
-                        prev->right = right;
-                        curr->right = NULL;
+                        prev->next = right;
+                        curr->next = NULL;
                     }else{
                         head = right;
-                        curr->right = NULL;
+                        curr->next = NULL;
                     }
                     delete curr;
                     curr = NULL;
                 }else{
                     prev = curr;
-                    curr = curr->right;
+                    curr = curr->next;
                     if(curr)
-                        right = curr->right;
+                        right = curr->next;
                 }
             }
         }

@@ -327,6 +327,27 @@ namespace SpaceMatrix4{
             return *this;
         }
 
+//        // rotate beta X-axis
+//        Matrix rotateX(float beta){
+//            Matrix4 m;
+//            return m;
+//        }
+//        // roate beta Y-axis
+//        Matrix rotateY(float beta){
+//            Matrix4 m;
+//            return m;
+//        }
+//        // rotate beta Z-axis
+//        Matrix rotateZ(float beta){
+//            Matrix4 m;
+//            return m;
+//        }
+//        // rotate beta around vect
+//        Matrix rotate(float beta, Vector4 vect){
+//            Matrix4 m;
+//            return m;
+//        }
+
         void print(){
             printf("[%f][%f][%f][%f]\n", mat[0][0], mat[1][0], mat[2][0], mat[3][0]);
             printf("[%f][%f][%f][%f]\n", mat[0][1], mat[1][1], mat[2][1], mat[3][1]);
@@ -335,6 +356,7 @@ namespace SpaceMatrix4{
         }
     };
 };
+
 
 #endif
 

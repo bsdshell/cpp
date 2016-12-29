@@ -1,47 +1,33 @@
-#include<iostream>
-#include<vector>
-#include "Aron.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-using namespace std;
 
-int fibonacci(int num){
-    if(num == 1 || num == 2)
-        return 1;
-    else
-        return fibonacci(num - 1) + fibonacci(num - 2);
+void fun1(int x, int y, int z){
+    for(int i=-1; i<=1; i++){
+        for(int j=-1; j<=1; j++){
+            for(int k=-1; k<=1; k++){
+                printf("[%i][%i][%i]\n", x + i, y + j, z + k);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
 }
 
-void fun1(){
-    printf("fun1");
-}
 void fun2(){
-    printf("fun2");
-    fun1();
+    int w = 4;
+    int h = 4;
+    int d = 4;
+    for(int i=1; i<w-1; i++){
+        for(int j=1; j<h-1; j++){
+            for(int k=1; k<d-1; k++){
+                fun1(i, j, k);
+            }
+        }
+    }
 }
 
-
-
-// 1, 1, 2, 3, 5, 8, 13, 21, 34, 55
-// 1, 2, 3, 4, 5, 6, 7,  8,  9,  10
 int main(){
     fun2();
-    printf("Hello World\n"); 
-    int ret = 0;
-    int nkkk = 0;
-    ret = fibonacci(3);
-    printf("ret=[%d]\n", ret);
-    printf("---------------------------------\n");
-
-    nkkk++;
-    ret = fibonacci(4);
-    printf("ret=[%d]\n", ret);
-    printf("---------------------------------\n");
-
-    nkkk++;
-    nkkk++;
-    ret = fibonacci(10);
-    printf("ret=[%d]\n", ret);
-    printf("---------------------------------\n");
-
 }
 
