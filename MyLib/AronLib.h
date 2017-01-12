@@ -2,7 +2,8 @@
 #define __AronLib__ 
 
 #include <execinfo.h>
-#include<iostream>
+#include <iostream>
+#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
@@ -115,6 +116,27 @@ namespace Utility{
         glPopMatrix();
     }
 
+    void printFormatNew(GLfloat x, GLfloat y, char* buffer) {
+        glMatrixMode( GL_PROJECTION );
+        glPushMatrix();
+        glLoadIdentity();
+        gluOrtho2D( 0, 1280, 0, 1024 );
+
+        glMatrixMode( GL_MODELVIEW );
+        glPushMatrix();
+        glLoadIdentity();
+        glRasterPos2i(x, y);
+
+        for ( int i = 0; i < strlen(buffer); i++) {
+            //glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, buffer[i]);
+            glutBitmapCharacter(GLUT_BITMAP_9_BY_15, buffer[i]);
+        }
+
+        glPopMatrix();
+        glMatrixMode( GL_PROJECTION );
+        glPopMatrix();
+        glMatrixMode( GL_MODELVIEW );
+    }
     void printFormat(GLfloat x, GLfloat y, GLfloat fl, GLfloat f2) {
         glPushMatrix();
         glTranslatef(x, y, 0);
@@ -140,8 +162,37 @@ namespace Utility{
             glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
         glPopMatrix();
     }
+    void getModelViewMatrix(float matrix[16]){
+        glGetFloatv(GL_MODELVIEW_MATRIX, matrix); 
+        fprintf(stderr, "[%s]\n", "Algebra Matrix Form");
+        for(int i=0; i<4; i++){
+            for(int j=0; j<4; j++){
+                // OpenGL use column-major instead of row-major
+                fprintf(stderr, "[%f]", matrix[4*j+i]);
+            } 
+            fprintf(stderr, "%s", "\n");
+        } 
+        fprintf(stderr, "%s", "\n");
+    }
 };
 
+
+namespace SpaceLog{
+    class Logging{
+      public:
+      ofstream log;
+      public:
+      Logging(){
+        log.open ("/Users/cat/myfile/github/cpp/text/file1.txt");
+      }
+      void close(){
+          log.close();
+      }
+      ~Logging(){
+        log.close();
+      }
+    };
+};
 
 
 namespace SpaceVector4{

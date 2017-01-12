@@ -15,18 +15,21 @@ class Camera {
     double theta;      // determines the x and z positions
     double y;          // the current y position
     double dTheta;     // increment in theta for swinging the camera around
+    double alpha;     // increment in theta for swinging the camera around
+    double dAlpha;     // increment in theta for swinging the camera around
     double dy;         // increment in y for moving the camera up/down
     double r;
 public:
-    Camera(): theta(-1.2), y(3), dTheta(0.04), dy(0.2), r(6){}
+    Camera(): theta(-1.2), y(0), dTheta(0.04), dy(0.2), r(6), alpha(0.0), dAlpha(0.04){}
     double getX() {
-        return r * cos(theta);
+        return r * cos(theta)*cos(alpha);
     }
     double getY() {
-        return y;
+        //return y;
+        return r*sin(alpha);
     }
     double getZ() {
-        return r * sin(theta);
+        return r * sin(theta)*cos(alpha);
     }
     void moveRight() {
         theta += dTheta;
@@ -35,11 +38,13 @@ public:
         theta -= dTheta;
     }
     void moveUp() {
-        y += dy;
+        //y += dy;
+        alpha += dAlpha;
     }
     void moveDown() {
         //if (y > dy) y -= dy;
-        y -= dy;
+        //y -= dy;
+        alpha -= dAlpha;
     }
     void zoomIn() {
         //if (y > dy) y -= dy;

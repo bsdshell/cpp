@@ -9,10 +9,12 @@
 
 #include <cmath>
 #include "BezierCurve.h"
-#include "Utility.h"
+//#include "Utility.h"
 #include "Vector3.h"
 #include "Const.h"
+#include "AronLib.h"
 
+using namespace Utility;
 // three or four bezier curve 
 class Curve{
     Vector3 p0;

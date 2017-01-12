@@ -7,6 +7,8 @@
 #include <GL/glut.h>
 #endif
 #include <cmath>
+#include <cstring>
+#include <cstdio>
 
 class Cylinder{
     GLfloat WHITE[3] = {1, 1, 1};
