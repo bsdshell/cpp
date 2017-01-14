@@ -59,10 +59,11 @@ class Coordinate{
         col->setColor(GREEN, WHITE); 
         col->draw();
         glRotatef(90, 1.0, 0.0, 0.0);
-        col->setColor(RED, WHITE); 
-        col->draw();
+        co2->setColor(RED, WHITE); 
+        co2->draw();
         glRotatef(90, 0.0, 1.0, 0.0);
-        col->draw();
+        co3->setColor(MAGENTA, WHITE); 
+        co3->draw();
     }
     ~Coordinate(){
         delete col; 
