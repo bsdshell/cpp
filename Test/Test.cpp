@@ -5,6 +5,9 @@ using namespace std;
 using namespace Utility;
 using namespace SpaceVector4;
 using namespace SpaceMatrix4;
+using namespace SpaceTest;
+
+//namespace tt = SpaceTest;
 
 void fun(float arr[16]){
     int n1 = sizeof(arr);
@@ -270,6 +273,14 @@ void test1_translate(){
     v1.print();
 }
 
+
+void test30(){
+    Test<int> t1;    
+    cout<<"=>"<<t1.t(3, 4)<<endl;
+    Test<float> t2;    
+    cout<<"=>"<<t2.t(0.1, 0.1)<<endl;
+}
+
 int main(){
     printf("Hello World\n"); 
     test0();
@@ -294,5 +305,6 @@ int main(){
     test4_normal();
     test_translate();
     test1_translate();
+    test30();
 }
 

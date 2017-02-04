@@ -1,5 +1,6 @@
 #include<iostream>
 #include "AronLib.h"
+#include <vector>
 
 using namespace Utility;
 
@@ -25,14 +26,13 @@ class A{
     }
     A fun(){
         A a(100);
-        return a;
+        return std::move(a);
     }
-    
 };
-int main(){
-    printf("Hello World\n"); 
-//    A* pt = new A();
-//    pp(pt->num);
+
+void test0(){
+    begin();
+
     A a(3);
     A c = a;  // call copy constructor
     A b;
@@ -44,5 +44,17 @@ int main(){
     pp(d.num);
     pp(b.num);
     pp(e.num);
+}
+
+void test1(){
+    begin();
+    A a;
+    A b = a.fun();
+}
+
+int main(){
+    printf("Hello World\n"); 
+    test0();
+    test1();
 }
 

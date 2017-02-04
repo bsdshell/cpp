@@ -12,8 +12,70 @@
 #include "Const.h"
 
 #define PAD "--------------------------------------------------------------------------------"
-
 using namespace std;
+
+const string S_RED = "\033[1;31m";
+const string S_END = "\033[0m";
+
+
+//cout << "\033[1;31mbold red text\033[0m\n";
+
+namespace SpaceTest{
+    template<class T> class Test{
+        public:
+        Test(){ }
+        bool t(T a, T b){
+            color(a == b);
+        }
+        Test(const Test& other){}
+        bool f(T a, T b){
+            color(!(a == b));
+        }
+        bool f(bool b){
+            color(b);
+        }
+        void color(bool b){
+            if(b)
+                cout<<"["<<"true"<<"]"<<endl;
+            else
+                cout<<S_RED + "["<<"false"<<"]" + S_END<<endl;
+        }
+    };
+};
+
+// quick sort
+namespace SpaceSort{
+    void swap(int array[], int i, int j) {
+        int tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+    }
+
+    // quick sort partition
+    int partition(int array[], int lo, int hi) {
+        if(hi > lo) {
+            int p = array[hi];
+            int big = lo;
+            for(int i=lo; i<=hi; i++) {
+                if(array[i] <= p)     {
+                    swap(array, i, big);
+                    if(i < hi)
+                        big++;
+                }
+            }
+            return big;
+        }
+        return -1;
+    }
+
+    void quickSort(int array[], int lo, int hi) {
+        if(hi > lo) {
+            int pivot = partition(array, lo, hi); 
+            quickSort(array, lo, pivot-1);
+            quickSort(array, pivot+1, hi);
+        }
+    }
+}
 
 namespace Utility {
 void fl();
@@ -243,7 +305,7 @@ namespace SpaceDraw {
             glPopMatrix();
             glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays
         }
-    };
+    };  // end class Clube
 
     class SimpleCoordinate {
     public:
@@ -291,10 +353,37 @@ namespace SpaceDraw {
             glEnd();
         }
 
-    };
+    }; // end class SimpleCoordinate 
+
+    class Plane {
+    public:
+        float x;
+        float y;
+        Plane(int x_ = 1.0f, int y_ = 1.0f) {
+            x = x_;
+            y = y_;
+        }
+        // draw x-y plane
+        void draw() {
+            float alpha = 0.5;
+            glBegin(GL_QUADS);
+            glColor4f(x, 0.0, 0.0, alpha);
+            glVertex3f(-x, +y, 0.0); // top left
+
+            glColor4f(0.0, y, 0.0, alpha);
+            glVertex3f(-x, -y, 0.0); // bottom left
+
+            glColor4f(0.0, 0.0, 1.0, alpha);
+            glVertex3f(+x, -y, 0.0); // bottom right
+
+            glColor4f(0.0, y, 1.0, alpha);
+            glVertex3f(+x, +y, 0.0); // top right
+            glEnd();
+        }
+    }; // end class Plane
 
 
-};
+}; // end namespace PlaneSpaceDraw
 
 
 namespace SpaceLog {
@@ -318,10 +407,14 @@ public:
 namespace SpaceVector4 {
 class Vector4 {
     float column[4];
+    public:
+    const float e1[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+    const float e2[4] = {0.0f, 1.0f, 0.0f, 0.0f};
+    const float e3[4] = {0.0f, 0.0f, 1.0f, 0.0f};
+    const float e4[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 public:
     Vector4() {
-        column[0] = column[1] = column[2] = 0.0f;
-        column[3] = 0.0f;
+        column[0] = column[1] = column[2] = column[3] = 0.0f;
     }
     Vector4(const Vector4& other) {
         this->column[0] = other.column[0];
@@ -329,11 +422,18 @@ public:
         this->column[2] = other.column[2];
         this->column[3] = other.column[3];
     }
+
     Vector4(float x, float y, float z, float w = 1.0f) {
         this->column[0] = x;
         this->column[1] = y;
         this->column[2] = z;
         this->column[3] = w;
+    }
+    Vector4(const float arr[4]) {
+        this->column[0] = arr[0];
+        this->column[1] = arr[1];
+        this->column[2] = arr[2];
+        this->column[3] = arr[3];
     }
     Vector4(float arr[4]) {
         this->column[0] = arr[0];
@@ -341,7 +441,13 @@ public:
         this->column[2] = arr[2];
         this->column[3] = arr[3];
     }
-
+    bool operator==(const Vector4& rhs) {
+        bool b0 = column[0] == rhs.column[0];
+        bool b1 = column[1] == rhs.column[1];
+        bool b2 = column[2] == rhs.column[2];
+        bool b3 = column[3] == rhs.column[3];
+        return (b0 && b1 && b2 && b3);
+    }
     Vector4& operator=(const Vector4& rhs) {
         this->column[0] = rhs.column[0];
         this->column[1] = rhs.column[1];
@@ -369,19 +475,19 @@ public:
     }
 
     Vector4 operator/(float n) {
-        Vector4::Vector4 v;
+        Vector4 v;
         v.column[0] = column[0]/n;
         v.column[1] = column[1]/n;
         v.column[2] = column[2]/n;
         return v;
     }
 
-    float dot(Vector4::Vector4& rhs) {
-        Vector4::Vector4 v;
+    float dot(Vector4& rhs) {
+        Vector4 v;
         v.column[0] = column[0] * rhs.column[0];
         v.column[1] = column[1] * rhs.column[1];
         v.column[2] = column[2] * rhs.column[2];
-        return v[0] + v[1] + v[2] + v[3];
+        return v[0] + v[1] + v[2];
     }
 
     float cross(Vector4::Vector4& rhs) {
@@ -407,14 +513,18 @@ public:
         return column[index];
     }
 
+    void pp() {
+        print();
+    }
     void print() {
-        printf("x=[%f], y=[%f], z=[%f] w=[%f]\n", column[0], column[1], column[2], column[3]);
+        printf("x=[%1.2f]\ny=[%1.2f]\nz=[%1.2f]\nw=[%1.2f]\n\n", column[0], column[1], column[2], column[3]);
     }
 };
 };
 
 namespace SpaceMatrix4 {
 using namespace SpaceVector4;
+using namespace Utility;
 
 class Matrix4 {
     Vector4 mat[4];
@@ -430,6 +540,23 @@ public:
         mat[2] = matrix[2];
         mat[3] = matrix[3];
     }
+
+    Matrix4(Vector4 v0, Vector4 v1, Vector4 v2, Vector4 v3){
+        mat[0] = v0;
+        mat[1] = v1;
+        mat[2] = v2;
+        mat[3] = v3;
+    }
+    Matrix4(float m[16]) {
+        Vector4 v1({ m[0],   m[1],   m[2],   m[3]});  
+        Vector4 v2({ m[4],   m[5],   m[6],   m[7]});  
+        Vector4 v3({ m[8],   m[9],   m[10],  m[11]}); 
+        Vector4 v4({ m[12],  m[13],  m[14],  m[15]}); 
+        mat[0] = v1;
+        mat[1] = v2;
+        mat[2] = v3;
+        mat[3] = v4;
+    }
     Matrix4& operator=(const Matrix4& matrix) {
         mat[0] = matrix[0];
         mat[1] = matrix[1];
@@ -438,6 +565,13 @@ public:
         return *this;
     }
 
+    bool operator==(const Matrix4& matrix) {
+        bool b0 = mat[0] == matrix[0];
+        bool b1 = mat[1] == matrix[1];
+        bool b2 = mat[2] == matrix[2];
+        bool b3 = mat[3] == matrix[3];
+        return (b0 && b1 && b2 && b3);
+    }
     // overload [] , const => member variables CAN NOT be modified
     const Vector4& operator[](int index) const {
         return mat[index];
@@ -471,6 +605,7 @@ public:
         Vector4 row2(mat[0][2], mat[1][2], mat[2][2], mat[3][2]);
         Vector4 row3(mat[0][3], mat[1][3], mat[2][3], mat[3][3]);
         Vector4 v(row0.dot(vect4), row1.dot(vect4), row2.dot(vect4), row3.dot(vect4));
+        v.print();
         return v;
     }
 
@@ -497,33 +632,23 @@ public:
         mat[3][3] = w;
         return *this;
     }
+    Matrix4 identity(){
+        mat[0][0] = 1;
+        mat[1][1] = 1;
+        mat[2][2] = 1;
+        mat[3][3] = 1;
+        return *this;
+    }
 
-//        // rotate beta X-axis
-//        Matrix rotateX(float beta){
-//            Matrix4 m;
-//            return m;
-//        }
-//        // roate beta Y-axis
-//        Matrix rotateY(float beta){
-//            Matrix4 m;
-//            return m;
-//        }
-//        // rotate beta Z-axis
-//        Matrix rotateZ(float beta){
-//            Matrix4 m;
-//            return m;
-//        }
-//        // rotate beta around vect
-//        Matrix rotate(float beta, Vector4 vect){
-//            Matrix4 m;
-//            return m;
-//        }
-
+    void pp() {
+        print();
+    }
     void print() {
-        printf("[%f][%f][%f][%f]\n", mat[0][0], mat[1][0], mat[2][0], mat[3][0]);
-        printf("[%f][%f][%f][%f]\n", mat[0][1], mat[1][1], mat[2][1], mat[3][1]);
-        printf("[%f][%f][%f][%f]\n", mat[0][2], mat[1][2], mat[2][2], mat[3][2]);
-        printf("[%f][%f][%f][%f]\n", mat[0][3], mat[1][3], mat[2][3], mat[3][3]);
+        printf("[%1.2f][%1.2f][%1.2f][%1.2f]\n", mat[0][0], mat[1][0], mat[2][0], mat[3][0]);
+        printf("[%1.2f][%1.2f][%1.2f][%1.2f]\n", mat[0][1], mat[1][1], mat[2][1], mat[3][1]);
+        printf("[%1.2f][%1.2f][%1.2f][%1.2f]\n", mat[0][2], mat[1][2], mat[2][2], mat[3][2]);
+        printf("[%1.2f][%1.2f][%1.2f][%1.2f]\n", mat[0][3], mat[1][3], mat[2][3], mat[3][3]);
+        fl();
     }
 };
 };
