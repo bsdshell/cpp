@@ -262,14 +262,15 @@ void test_translate(){
     mat.translate(1, 2, 3);
     mat.print();
 }
+
 void test1_translate(){
     begin();
-    Vector4 v(1, 1, 1, 1);
+    Vector4 v(100, 101, 102, 1);
     Matrix4 mat;
-    mat.translate(1, 2, 3);
-    Vector4 v1 = mat*v;
+    mat.translate(2, 3, 4);
     v.print();
     mat.print();
+    Vector4 v1 = mat*v;
     v1.print();
 }
 

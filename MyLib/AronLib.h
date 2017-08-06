@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
+#include <cmath>
 #include "Vector3.h"
 #include "DDLinkedList.h"
 #include "Const.h"
@@ -20,61 +21,65 @@ const string S_END = "\033[0m";
 
 //cout << "\033[1;31mbold red text\033[0m\n";
 
-namespace SpaceTest{
-    template<class T> class Test{
-        public:
-        Test(){ }
-        bool t(T a, T b){
-            color(a == b);
-        }
-        Test(const Test& other){}
-        bool f(T a, T b){
-            color(!(a == b));
-        }
-        bool f(bool b){
-            color(b);
-        }
-        void color(bool b){
-            if(b)
-                cout<<"["<<"true"<<"]"<<endl;
-            else
-                cout<<S_RED + "["<<"false"<<"]" + S_END<<endl;
-        }
-    };
+namespace SpaceTest {
+template<class T> class Test {
+public:
+    Test() { }
+    bool t(T a, T b) {
+        color(a == b);
+    }
+    bool t(double a, double b){
+        double epsilon = 0.00001;
+        return fabs(a - b) < epsilon;
+    }
+    Test(const Test& other) {}
+    bool f(T a, T b) {
+        color(!(a == b));
+    }
+    bool f(bool b) {
+        color(b);
+    }
+    void color(bool b) {
+        if(b)
+            cout<<"["<<"true"<<"]"<<endl;
+        else
+            cout<<S_RED + "["<<"false"<<"]" + S_END<<endl;
+    }
+};
 };
 
 // quick sort
-namespace SpaceSort{
-    void swap(int array[], int i, int j) {
-        int tmp = array[i];
-        array[i] = array[j];
-        array[j] = tmp;
-    }
+namespace SpaceSort {
+void swap(int array[], int i, int j) {
+    int tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+}
 
-    // quick sort partition
-    int partition(int array[], int lo, int hi) {
-        if(hi > lo) {
-            int p = array[hi];
-            int big = lo;
-            for(int i=lo; i<=hi; i++) {
-                if(array[i] <= p)     {
-                    swap(array, i, big);
-                    if(i < hi)
-                        big++;
-                }
+// quick sort partition
+int partition(int array[], int lo, int hi) {
+    if(hi > lo) {
+        int p = array[hi];
+        int big = lo;
+        for(int i=lo; i<=hi; i++) {
+            if(array[i] <= p)     {
+                swap(array, i, big);
+                if(i < hi)
+                    big++;
             }
-            return big;
         }
-        return -1;
+        return big;
     }
+    return -1;
+}
 
-    void quickSort(int array[], int lo, int hi) {
-        if(hi > lo) {
-            int pivot = partition(array, lo, hi); 
-            quickSort(array, lo, pivot-1);
-            quickSort(array, pivot+1, hi);
-        }
+void quickSort(int array[], int lo, int hi) {
+    if(hi > lo) {
+        int pivot = partition(array, lo, hi);
+        quickSort(array, lo, pivot-1);
+        quickSort(array, pivot+1, hi);
     }
+  }
 }
 
 namespace Utility {
@@ -249,140 +254,197 @@ void getModelViewMatrix(float matrix[16]) {
 
 
 namespace SpaceDraw {
-    class Cube {
-    public:
-        float x = 1.0f;
-        float y;
-        float z;
-        float r;
+class Cube {
+public:
+    float x = 1.0f;
+    float y;
+    float z;
+    float r;
 
-        GLfloat vertices[108] = { 1, 1, 1,  -1, 1, 1,  -1,-1, 1,      // v0-v1-v2 (front)
-                                  -1,-1, 1,   1,-1, 1,   1, 1, 1,      // v2-v3-v0
+    GLfloat vertices[108] = { 1, 1, 1,  -1, 1, 1,  -1,-1, 1,      // v0-v1-v2 (front)
+                              -1,-1, 1,   1,-1, 1,   1, 1, 1,      // v2-v3-v0
 
-                                  1, 1, 1,   1,-1, 1,   1,-1,-1,      // v0-v3-v4 (right)
-                                  1,-1,-1,   1, 1,-1,   1, 1, 1,      // v4-v5-v0
+                              1, 1, 1,   1,-1, 1,   1,-1,-1,      // v0-v3-v4 (right)
+                              1,-1,-1,   1, 1,-1,   1, 1, 1,      // v4-v5-v0
 
-                                  1, 1, 1,   1, 1,-1,  -1, 1,-1,      // v0-v5-v6 (top)
-                                  -1, 1,-1,  -1, 1, 1,   1, 1, 1,      // v6-v1-v0
+                              1, 1, 1,   1, 1,-1,  -1, 1,-1,      // v0-v5-v6 (top)
+                              -1, 1,-1,  -1, 1, 1,   1, 1, 1,      // v6-v1-v0
 
-                                  -1, 1, 1,  -1, 1,-1,  -1,-1,-1,      // v1-v6-v7 (left)
-                                  -1,-1,-1,  -1,-1, 1,  -1, 1, 1,      // v7-v2-v1
+                              -1, 1, 1,  -1, 1,-1,  -1,-1,-1,      // v1-v6-v7 (left)
+                              -1,-1,-1,  -1,-1, 1,  -1, 1, 1,      // v7-v2-v1
 
-                                  -1,-1,-1,   1,-1,-1,   1,-1, 1,      // v7-v4-v3 (bottom)
-                                  1,-1, 1,  -1,-1, 1,  -1,-1,-1,      // v3-v2-v7
+                              -1,-1,-1,   1,-1,-1,   1,-1, 1,      // v7-v4-v3 (bottom)
+                              1,-1, 1,  -1,-1, 1,  -1,-1,-1,      // v3-v2-v7
 
-                                  1,-1,-1,  -1,-1,-1,  -1, 1,-1,      // v4-v7-v6 (back)
-                                  -1, 1,-1,   1, 1,-1,   1,-1,-1
-                                };    // v6-v5-v4
+                              1,-1,-1,  -1,-1,-1,  -1, 1,-1,      // v4-v7-v6 (back)
+                              -1, 1,-1,   1, 1,-1,   1,-1,-1
+                            };    // v6-v5-v4
 
-        Cube() {
-        }
-        Cube(float x1, float y1, float z1, float r1=1.0) {
-            x = x1;
-            y = y1;
-            z = z1;
-            r = r1;
-        }
+    Cube() {
+    }
+    Cube(float x1, float y1, float z1, float r1=1.0) {
+        x = x1;
+        y = y1;
+        z = z1;
+        r = r1;
+    }
 
-        void draw() {
-            glEnable(GL_DEPTH_TEST);
-            glLightfv(GL_LIGHT0, GL_DIFFUSE, WHITE);
-            glLightfv(GL_LIGHT0, GL_SPECULAR, RED);
-            glMaterialfv(GL_FRONT, GL_SPECULAR, MAGENTA);
-            glMaterialf(GL_FRONT, GL_SHININESS, 10);
-            glEnable(GL_LIGHTING);
-            glEnable(GL_LIGHT0);
+    void draw() {
+        glEnable(GL_DEPTH_TEST);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, WHITE);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, RED);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, MAGENTA);
+        glMaterialf(GL_FRONT, GL_SHININESS, 10);
+        glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
 
-            GLfloat lightPosition[] = {4, 3, 7, 1};
-            glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-            glNormal3d(0, 1, 0);
-            // enble and specify pointers to vertex arrays
-            glEnableClientState(GL_VERTEX_ARRAY);
-            glVertexPointer(3, GL_FLOAT, 0, vertices);
-            glPushMatrix();
-            glDrawArrays(GL_TRIANGLES, 0, 36);
+        GLfloat lightPosition[] = {4, 3, 7, 1};
+        glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+        glNormal3d(0, 1, 0);
+        // enble and specify pointers to vertex arrays
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, vertices);
+        glPushMatrix();
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
-            glPopMatrix();
-            glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays
-        }
-    };  // end class Clube
+        glPopMatrix();
+        glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays
+    }
+};  // end class Clube
 
-    class SimpleCoordinate {
-    public:
-        SimpleCoordinate() {
-        }
-    public:
-        void draw(float width = 1.0, int num=10) {
-            glBegin(GL_LINES);
-            float delta = width/num;
-            glColor3f(0.0f, width, 0.0f);
-            for(int i=-num; i<=num; i++) {
-                glVertex3f(-width, 0.0f, delta*i);
-                glVertex3f(width, 0.0f,  delta*i);
-            }
-
-            glColor3f(0.3f,0.7f,0.0f);
-            for(int i=-num; i<=num; i++) {
-                glVertex3f(-width, delta*i,  0.0f);
-                glVertex3f(width,  delta*i,  0.0f);
-            }
-
-            glColor3f(width, 0.0f,0.0f);
-            for(int i=-num; i<=num; i++) {
-                glVertex3f(0.0f, -width, delta*i);
-                glVertex3f(0.0f, width,  delta*i);
-            }
-
-            glColor3f(0.4f, 0.4f,0.1f);
-            for(int i=-num; i<=num; i++) {
-                glVertex3f(delta*i, -width, 0.0f);
-                glVertex3f(delta*i, width,  0.0f);
-            }
-
-            glColor3f(0.0f, 0.0f, width);
-            for(int i=-num; i<=num; i++) {
-                glVertex3f(delta*i, 0.0f, -width);
-                glVertex3f(delta*i, 0.0f, width);
-            }
-
-            glColor3f(0.0f, 0.5f, 0.5f);
-            for(int i=-num; i<=num; i++) {
-                glVertex3f(0.0f, delta*i, -width);
-                glVertex3f(0.0f, delta*i, width);
-            }
-            glEnd();
+class SimpleCoordinate {
+public:
+    SimpleCoordinate() {
+    }
+public:
+    void draw(float width = 1.0, int num=10) {
+        glBegin(GL_LINES);
+        float delta = width/num;
+        glColor3f(0.0f, width, 0.0f);
+        for(int i=-num; i<=num; i++) {
+            glVertex3f(-width, 0.0f, delta*i);
+            glVertex3f(width, 0.0f,  delta*i);
         }
 
-    }; // end class SimpleCoordinate 
-
-    class Plane {
-    public:
-        float x;
-        float y;
-        Plane(int x_ = 1.0f, int y_ = 1.0f) {
-            x = x_;
-            y = y_;
+        glColor3f(0.3f,0.7f,0.0f);
+        for(int i=-num; i<=num; i++) {
+            glVertex3f(-width, delta*i,  0.0f);
+            glVertex3f(width,  delta*i,  0.0f);
         }
-        // draw x-y plane
-        void draw() {
-            float alpha = 0.5;
-            glBegin(GL_QUADS);
-            glColor4f(x, 0.0, 0.0, alpha);
-            glVertex3f(-x, +y, 0.0); // top left
 
-            glColor4f(0.0, y, 0.0, alpha);
-            glVertex3f(-x, -y, 0.0); // bottom left
-
-            glColor4f(0.0, 0.0, 1.0, alpha);
-            glVertex3f(+x, -y, 0.0); // bottom right
-
-            glColor4f(0.0, y, 1.0, alpha);
-            glVertex3f(+x, +y, 0.0); // top right
-            glEnd();
+        glColor3f(width, 0.0f,0.0f);
+        for(int i=-num; i<=num; i++) {
+            glVertex3f(0.0f, -width, delta*i);
+            glVertex3f(0.0f, width,  delta*i);
         }
-    }; // end class Plane
 
+        glColor3f(0.4f, 0.4f,0.1f);
+        for(int i=-num; i<=num; i++) {
+            glVertex3f(delta*i, -width, 0.0f);
+            glVertex3f(delta*i, width,  0.0f);
+        }
 
+        glColor3f(0.0f, 0.0f, width);
+        for(int i=-num; i<=num; i++) {
+            glVertex3f(delta*i, 0.0f, -width);
+            glVertex3f(delta*i, 0.0f, width);
+        }
+
+        glColor3f(0.0f, 0.5f, 0.5f);
+        for(int i=-num; i<=num; i++) {
+            glVertex3f(0.0f, delta*i, -width);
+            glVertex3f(0.0f, delta*i, width);
+        }
+        glEnd();
+    }
+
+}; // end class SimpleCoordinate
+
+class Plane {
+public:
+    float x;
+    float y;
+    Plane(int x_ = 1.0f, int y_ = 1.0f) {
+        x = x_;
+        y = y_;
+    }
+    // draw x-y plane
+    void draw() {
+        float alpha = 0.5;
+        glBegin(GL_QUADS);
+        glColor4f(x, 0.0, 0.0, alpha);
+        glVertex3f(-x, +y, 0.0); // top left
+
+        glColor4f(0.0, y, 0.0, alpha);
+        glVertex3f(-x, -y, 0.0); // bottom left
+
+        glColor4f(0.0, 0.0, 1.0, alpha);
+        glVertex3f(+x, -y, 0.0); // bottom right
+
+        glColor4f(0.0, y, 1.0, alpha);
+        glVertex3f(+x, +y, 0.0); // top right
+        glEnd();
+    }
+}; // end class Plane
+
+class Circle {
+    int numc;
+    double twopi;
+    double cx;
+    double cy;
+    double x;
+    double y;
+    double radius;
+    double beta = 0.0;
+public:
+    Circle(double cx, double cy) {
+        twopi = 2 * (double)M_PI;
+        this->cx = cx;
+        this->cy = cy;
+        numc = 10;
+        radius = 2;
+        beta = twopi/numc;
+    }
+
+    Circle(double cx, double cy, int numc) {
+        twopi = 2 * (double)M_PI;
+        this->numc = numc;
+        this->cx = cx;
+        this->cy = cy;
+        numc = 10;
+        radius = 2;
+        beta = twopi/this->numc;
+    }
+
+    Circle(double cx, double cy, double radius, int numc) {
+        twopi = 2 * (double)M_PI;
+        this->numc = numc;
+        this->cx = cx;
+        this->cy = cy;
+        numc = 10;
+        this->radius = radius;
+        beta = twopi/this->numc;
+    }
+    void move(double mx, double my, double mz) {
+        cx = mx;
+        cy = my;
+    }
+    void draw() {
+        GLfloat lightPosition[] = {4, 3, 7, 1};
+        glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+        glBegin(GL_LINE_STRIP);
+        glNormal3d(0, 1, 0);
+
+        for (int i = 0; i <= numc; i++) {
+            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
+                         i % 2 == 0 ? GREEN : MAGENTA);
+            x = radius*cos(beta*i);
+            y = radius*sin(beta*i);
+            glVertex3f(x + cx, y + cy, 0);
+        }
+        glEnd();
+    }
+};
 }; // end namespace PlaneSpaceDraw
 
 
@@ -403,11 +465,43 @@ public:
 };
 };
 
+namespace SpaceComplex{
+    class Complex{
+    public:
+        double x;
+        double y;
+
+            Complex(){
+                x = 0.0;
+                y = 0.0;
+            }
+            Complex(double x_, double y_){
+                x = x_;
+                y = y_;
+            }
+            Complex operator+(Complex& c){
+                Complex co;
+                co.x = x + c.x;
+                co.y = y + c.y;
+                return co;
+            }
+            Complex operator-(Complex& c){
+                Complex co;
+                co.x = x - c.x;
+                co.y = y - c.y;
+                return co;
+            }
+            void print() {
+                printf("[%1.2f][%1.2f]\n", x, y);
+            }
+    };
+};
+
 
 namespace SpaceVector4 {
 class Vector4 {
     float column[4];
-    public:
+public:
     const float e1[4] = {1.0f, 0.0f, 0.0f, 0.0f};
     const float e2[4] = {0.0f, 1.0f, 0.0f, 0.0f};
     const float e3[4] = {0.0f, 0.0f, 1.0f, 0.0f};
@@ -487,7 +581,8 @@ public:
         v.column[0] = column[0] * rhs.column[0];
         v.column[1] = column[1] * rhs.column[1];
         v.column[2] = column[2] * rhs.column[2];
-        return v[0] + v[1] + v[2];
+        v.column[3] = column[3] * rhs.column[3];
+        return v[0] + v[1] + v[2] + v[3];
     }
 
     float cross(Vector4::Vector4& rhs) {
@@ -541,17 +636,17 @@ public:
         mat[3] = matrix[3];
     }
 
-    Matrix4(Vector4 v0, Vector4 v1, Vector4 v2, Vector4 v3){
+    Matrix4(Vector4 v0, Vector4 v1, Vector4 v2, Vector4 v3) {
         mat[0] = v0;
         mat[1] = v1;
         mat[2] = v2;
         mat[3] = v3;
     }
     Matrix4(float m[16]) {
-        Vector4 v1({ m[0],   m[1],   m[2],   m[3]});  
-        Vector4 v2({ m[4],   m[5],   m[6],   m[7]});  
-        Vector4 v3({ m[8],   m[9],   m[10],  m[11]}); 
-        Vector4 v4({ m[12],  m[13],  m[14],  m[15]}); 
+        Vector4 v1({ m[0],   m[1],   m[2],   m[3]});
+        Vector4 v2({ m[4],   m[5],   m[6],   m[7]});
+        Vector4 v3({ m[8],   m[9],   m[10],  m[11]});
+        Vector4 v4({ m[12],  m[13],  m[14],  m[15]});
         mat[0] = v1;
         mat[1] = v2;
         mat[2] = v3;
@@ -604,6 +699,18 @@ public:
         Vector4 row1(mat[0][1], mat[1][1], mat[2][1], mat[3][1]);
         Vector4 row2(mat[0][2], mat[1][2], mat[2][2], mat[3][2]);
         Vector4 row3(mat[0][3], mat[1][3], mat[2][3], mat[3][3]);
+
+        row0.print();
+        row1.print();
+        row2.print();
+        row3.print();
+
+        vect4.print();
+        cout<<"["<<row0.dot(vect4)<<"]"<<endl;
+        cout<<"["<<row1.dot(vect4)<<"]"<<endl;
+        cout<<"["<<row2.dot(vect4)<<"]"<<endl;
+        cout<<"["<<row3.dot(vect4)<<"]"<<endl;
+
         Vector4 v(row0.dot(vect4), row1.dot(vect4), row2.dot(vect4), row3.dot(vect4));
         v.print();
         return v;
@@ -620,19 +727,20 @@ public:
     }
     // [1, 2, 3, 0] => point at infinite
     // [1, 2, 3, 1] => normal point
-    Matrix4 translate(float x, float y, float z, float w = 0.0f) {
+    Matrix4 translate(float x, float y, float z) {
         Matrix4 m;
         mat[0][0] = 1;
         mat[1][1] = 1;
         mat[2][2] = 1;
+        mat[3][3] = 1;
 
         mat[3][0] = x;
         mat[3][1] = y;
         mat[3][2] = z;
-        mat[3][3] = w;
+        mat[3][3] = 1;
         return *this;
     }
-    Matrix4 identity(){
+    Matrix4 identity() {
         mat[0][0] = 1;
         mat[1][1] = 1;
         mat[2][2] = 1;
