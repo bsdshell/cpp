@@ -1,19 +1,19 @@
 #include<iostream>
 #include<vector>
 #include<cmath> 
-#include "Aron.h"
+#include "AronLib.h"
 
 using namespace std;
 //[ file=printbinary.html title=""
-Node* build(Node* root, int level, int l){
+Node<int>* build(Node<int>* root, int level, int l){
     if(l < level && !root){
-        root = new Node(1);
+        root = new Node<int>(1);
         root->left = build(root->left, level, l + 1);
         root->right= build(root->right, level, l + 1);
     }
     return root;
 }
-void printBinary(Node* root, std::string str){
+void printBinary(Node<int>* root, std::string str){
     if(root){
         printBinary(root->left, str + "0");
 
@@ -46,8 +46,8 @@ void test0(){
     printf("[%s]--------\n", __PRETTY_FUNCTION__);
     int level = 1;
     int l = 0;
-    Node* node = NULL;
-    Node* root = build(node, level, l); 
+    Node<int>* node = NULL;
+    Node<int>* root = build(node, level, l); 
     inorder(root);
     printf("---------------------------------\n");
 }
@@ -55,8 +55,8 @@ void test1(){
     printf("[%s]--------\n", __PRETTY_FUNCTION__);
     int level = 2;
     int l = 0;
-    Node* node = NULL;
-    Node* root = build(node, level, l); 
+    Node<int>* node = NULL;
+    Node<int>* root = build(node, level, l); 
     inorder(root);
     printf("---------------------------------\n");
 }
@@ -65,8 +65,8 @@ void test2(){
     printf("[%s]--------\n", __PRETTY_FUNCTION__);
     int level = 3;
     int l = 0;
-    Node* node = NULL;
-    Node* root = build(node, level, l); 
+    Node<int>* node = NULL;
+    Node<int>* root = build(node, level, l); 
     inorder(root);
     printf("---------------------------------\n");
 } 
@@ -74,8 +74,8 @@ void test3(){
     printf("[%s]--------\n", __PRETTY_FUNCTION__);
     int level = 5;
     int l = 0;
-    Node* node = NULL;
-    Node* root = build(node, level, l); 
+    Node<int>* node = NULL;
+    Node<int>* root = build(node, level, l); 
     inorder(root);
 
     printf("---------------------------------\n");
@@ -101,7 +101,7 @@ void test6(){
     printf("---------------------------------\n");
 } 
 
-void test8(){
+void test7(){
     printf("[%s]--------\n", __PRETTY_FUNCTION__);
     printAllBinary(0);
     printf("---------------------------------\n");
@@ -116,5 +116,6 @@ int main(){
     test4(); 
     test5(); 
     test6(); 
+    test7(); 
 }
 
